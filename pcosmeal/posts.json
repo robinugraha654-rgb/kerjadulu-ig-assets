@@ -1,0 +1,488 @@
+[
+ {
+  "id": "d1",
+  "date": "2026-10-22",
+  "topic": "5 tanda PCOS yang sering dianggap sepele",
+  "cta": "Kirim ke teman",
+  "sales": false,
+  "caption": "Tubuhmu mungkin sudah kasih sinyal, tapi sering dianggap sepele.\n\n5 tanda yang sering muncul pada PCOS:\n- Haid tidak teratur\n- Jerawat yang membandel\n- Rambut halus tumbuh di wajah atau perut, rambut kepala menipis\n- Berat badan naik dan susah turun\n- Kulit lebih gelap di lipatan leher atau ketiak\n\nTanda-tanda ini bisa punya banyak penyebab, jadi ini bukan alat diagnosis. Kalau beberapa kamu alami, periksa ke dokter.\n\nKirim postingan ini ke temanmu yang haidnya sering telat. Bisa jadi dia belum sadar.\n\nKonten edukasi, bukan pengganti konsultasi dokter.\n\n#pcos #pcosindonesia #pcosfriendly #sindromovariumpolikistik #hormonwanita #haidtidakteratur #tandapcos",
+  "slides": [
+   {
+    "t": "cover",
+    "title": "5 tanda PCOS yang sering dianggap sepele",
+    "sub": "(jangan cuma dibiarkan)",
+    "cta": "Geser untuk lihat tandanya"
+   },
+   {
+    "t": "point",
+    "title": "Tubuhmu sebenarnya sudah kasih sinyal",
+    "body": "Tidak semua penderita PCOS merasakan gejala yang sama.",
+    "card": [
+     "Catatan",
+     "Tanda di bawah bisa punya banyak penyebab. Ini bukan alat diagnosis."
+    ]
+   },
+   {
+    "t": "point",
+    "pill": "Tanda 1",
+    "title": "Haid tidak teratur",
+    "body": "Siklus lebih panjang dari 35 hari, atau sering telat tanpa sebab yang jelas.",
+    "card": [
+     "Tips",
+     "Catat tanggal haidmu tiap bulan di HP."
+    ]
+   },
+   {
+    "t": "point",
+    "pill": "Tanda 2",
+    "title": "Jerawat yang membandel",
+    "body": "Terus muncul di area rahang dan dagu, dan susah sembuh dengan perawatan biasa.",
+    "card": [
+     "Tahukah kamu",
+     "Bisa terkait hormon androgen yang lebih tinggi."
+    ]
+   },
+   {
+    "t": "point",
+    "pill": "Tanda 3",
+    "title": "Rambut tumbuh di tempat tak biasa",
+    "body": "Rambut halus lebih tebal di wajah, dagu, atau perut, sementara rambut di kepala menipis.",
+    "card": [
+     "Tips",
+     "Kondisi ini perlu dicek dokter, jangan hanya dicukur terus."
+    ]
+   },
+   {
+    "t": "point",
+    "pill": "Tanda 4",
+    "title": "Berat badan naik, susah turun",
+    "body": "Lemak lebih mudah menumpuk di area perut.",
+    "card": [
+     "Catatan",
+     "PCOS juga bisa dialami orang yang bertubuh kurus."
+    ]
+   },
+   {
+    "t": "point",
+    "pill": "Tanda 5",
+    "title": "Kulit lebih gelap di lipatan",
+    "body": "Warna kulit di leher, ketiak, atau lipatan paha tampak lebih gelap dan tebal.",
+    "card": [
+     "Tahukah kamu",
+     "Sering dikaitkan dengan resistensi insulin."
+    ]
+   },
+   {
+    "t": "point",
+    "title": "Kalau beberapa tanda ini kamu alami, periksa ke dokter",
+    "body": "Dokter biasanya menilai dari riwayat haid, pemeriksaan fisik, tes darah, dan USG."
+   },
+   {
+    "t": "cta",
+    "title": "Kirim ke temanmu yang haidnya sering telat",
+    "body": "Bisa jadi dia belum sadar.",
+    "bold": "Simpan juga buat pengingat."
+   }
+  ]
+ },
+ {
+  "id": "d2",
+  "date": "2026-10-23",
+  "topic": "Insulin resistance, penjelasan sederhana",
+  "cta": "Simpan",
+  "sales": false,
+  "caption": "Insulin resistance sering disebut kalau bahas PCOS. Tapi sebenarnya apa sih artinya?\n\nSingkatnya: sel tubuh jadi kurang responsif terhadap insulin, jadi tubuh membuat insulin lebih banyak untuk mengimbangi. Insulin yang tinggi bisa merangsang ovarium membuat lebih banyak hormon androgen. Banyak, tapi tidak semua, penderita PCOS mengalaminya.\n\nPenanganannya berbeda untuk tiap orang, jadi konsultasikan dengan dokter.\n\nSimpan postingan ini sebagai pengingat.\n\nKonten edukasi, bukan pengganti konsultasi dokter.\n\n#pcos #pcosindonesia #pcosfriendly #sindromovariumpolikistik #hormonwanita #haidtidakteratur #insulinresistance",
+  "slides": [
+   {
+    "t": "cover",
+    "title": "Insulin resistance itu apa sih?",
+    "sub": "(dijelaskan dengan bahasa gampang)",
+    "cta": "Geser untuk baca"
+   },
+   {
+    "t": "point",
+    "title": "Insulin itu seperti kunci",
+    "body": "Setelah makan, tubuh melepas insulin untuk membantu gula masuk ke sel sebagai energi."
+   },
+   {
+    "t": "point",
+    "title": "Pada resistensi insulin, kuncinya kurang pas",
+    "body": "Sel jadi kurang responsif, jadi tubuh membuat insulin lebih banyak untuk mengimbangi."
+   },
+   {
+    "t": "point",
+    "title": "Kenapa dikaitkan dengan PCOS?",
+    "body": "Insulin yang tinggi bisa merangsang ovarium membuat lebih banyak hormon androgen.",
+    "card": [
+     "Catatan",
+     "Banyak, tapi tidak semua, penderita PCOS mengalaminya."
+    ]
+   },
+   {
+    "t": "list",
+    "title": "Yang bisa membantu",
+    "tag": "Gaya hidup",
+    "items": [
+     "Makan seimbang dan cukup serat",
+     "Rutin bergerak",
+     "Tidur cukup",
+     "Kontrol rutin ke dokter"
+    ]
+   },
+   {
+    "t": "point",
+    "title": "Yang sering disalahpahami",
+    "body": "Bukan berarti harus anti nasi dan anti gula selamanya. Yang penting porsi dan kombinasi makanannya.",
+    "card": [
+     "Ingat",
+     "Tiap orang berbeda, tanyakan ke dokter atau ahli gizi."
+    ]
+   },
+   {
+    "t": "cta",
+    "title": "Simpan postingan ini",
+    "body": "Buat pengingat kapan pun kamu butuh membacanya lagi.",
+    "bold": "Lain kali kalau bingung istilah, ingat: insulin itu kunci."
+   }
+  ]
+ },
+ {
+  "id": "d3",
+  "date": "2026-10-24",
+  "topic": "Olahraga ringan untuk pemula PCOS",
+  "cta": "Komentar",
+  "sales": false,
+  "caption": "Olahraga nggak harus ke gym. Mulai dari yang ringan, yang penting rutin.\n\n4 pilihan yang aman dicoba pemula:\n- Jalan kaki santai\n- Latihan kekuatan ringan\n- Yoga atau peregangan\n- Bersepeda atau berenang\n\nMulai 10 sampai 15 menit per hari, lalu naikkan pelan-pelan. Kalau ada nyeri, pusing, atau kondisi tertentu, tanyakan dokter dulu.\n\nKamu paling suka olahraga apa? Tulis di komentar, siapa tahu jadi inspirasi yang lain.\n\nKonten edukasi, bukan pengganti konsultasi dokter.\n\n#pcos #pcosindonesia #pcosfriendly #sindromovariumpolikistik #hormonwanita #haidtidakteratur #olahragapcos",
+  "slides": [
+   {
+    "t": "cover",
+    "title": "Olahraga ringan buat pemula PCOS",
+    "sub": "(nggak harus ke gym)",
+    "cta": "Geser untuk lihat pilihannya"
+   },
+   {
+    "t": "point",
+    "title": "Mulai dari yang ringan, yang penting rutin",
+    "body": "Gerak teratur membantu tubuh memakai insulin dengan lebih baik.",
+    "card": [
+     "Rumus gampang",
+     "Mulai 10 sampai 15 menit per hari, naikkan pelan-pelan."
+    ]
+   },
+   {
+    "t": "point",
+    "pill": "Pilihan 1",
+    "title": "Jalan kaki",
+    "body": "Santai tapi efektif. Bisa dicicil 10 menit sehabis makan.",
+    "card": [
+     "Tips",
+     "Target umum orang dewasa sekitar 150 menit per minggu."
+    ]
+   },
+   {
+    "t": "point",
+    "pill": "Pilihan 2",
+    "title": "Latihan kekuatan",
+    "body": "Squat, plank, atau angkat beban ringan 2 sampai 3 kali seminggu.",
+    "card": [
+     "Tips",
+     "Mulai dari beban badan sendiri dulu."
+    ]
+   },
+   {
+    "t": "point",
+    "pill": "Pilihan 3",
+    "title": "Yoga atau peregangan",
+    "body": "Cocok di hari yang capek. Membantu tubuh lebih rileks.",
+    "card": [
+     "Tips",
+     "Cukup 10 menit sebelum tidur."
+    ]
+   },
+   {
+    "t": "point",
+    "pill": "Pilihan 4",
+    "title": "Bersepeda atau berenang",
+    "body": "Gerakannya lembut di sendi tapi tetap membuat tubuh aktif.",
+    "card": [
+     "Tips",
+     "Pilih yang kamu suka supaya awet."
+    ]
+   },
+   {
+    "t": "point",
+    "title": "Dengarkan tubuhmu",
+    "body": "Kalau ada nyeri, pusing, atau kondisi tertentu, tanyakan dokter dulu sebelum memulai."
+   },
+   {
+    "t": "cta",
+    "title": "Kamu paling suka olahraga apa?",
+    "body": "Tulis di kolom komentar, siapa tahu jadi inspirasi yang lain."
+   }
+  ]
+ },
+ {
+  "id": "d4",
+  "date": "2026-10-25",
+  "topic": "Nama lain gula di label makanan",
+  "cta": "Link di bio",
+  "sales": true,
+  "caption": "Di label makanan, gula sering nggak ditulis \"gula\".\n\n5 nama yang perlu kamu kenali:\n- Sukrosa\n- Glukosa atau dekstrosa\n- Fruktosa\n- Maltodekstrin\n- Sirup glukosa\n\nTips baca label: cek jumlah gula per sajian, dan ingat bahan ditulis dari yang paling banyak.\n\nKalau masih bingung mulai dari mana, ada menu 7 hari PCOS friendly dari dr. Davira Az Zahra. Link di bio.\n\nKonten edukasi, bukan pengganti konsultasi dokter.\n\n#pcos #pcosindonesia #pcosfriendly #sindromovariumpolikistik #hormonwanita #haidtidakteratur #bacalabel",
+  "slides": [
+   {
+    "t": "cover",
+    "title": "Gula sering nyamar di label makanan",
+    "sub": "(kenali 5 nama ini)",
+    "cta": "Geser untuk lihat namanya"
+   },
+   {
+    "t": "point",
+    "title": "Tidak tertulis \"gula\", tapi tetap gula",
+    "body": "Di daftar bahan, gula sering memakai nama lain."
+   },
+   {
+    "t": "point",
+    "pill": "Nama 1",
+    "title": "Sukrosa",
+    "body": "Gula pasir yang biasa kita pakai sehari-hari."
+   },
+   {
+    "t": "point",
+    "pill": "Nama 2",
+    "title": "Glukosa atau dekstrosa",
+    "body": "Gula sederhana yang cepat diserap tubuh."
+   },
+   {
+    "t": "point",
+    "pill": "Nama 3",
+    "title": "Fruktosa",
+    "body": "Gula buah. Sering muncul di minuman manis kemasan."
+   },
+   {
+    "t": "point",
+    "pill": "Nama 4 dan 5",
+    "title": "Maltodekstrin dan sirup glukosa",
+    "body": "Sama-sama karbohidrat olahan yang cepat menaikkan gula darah."
+   },
+   {
+    "t": "point",
+    "title": "Cara cek label dengan cepat",
+    "body": "Lihat jumlah gula per sajian. Bahan yang ditulis paling awal adalah yang paling banyak.",
+    "card": [
+     "Rumus gampang",
+     "Kalau gula ada di 3 bahan pertama, pikir dua kali."
+    ]
+   },
+   {
+    "t": "sale",
+    "title": "Bingung mulai dari mana?"
+   }
+  ]
+ },
+ {
+  "id": "d5",
+  "date": "2026-10-26",
+  "topic": "Tidur dan stres, dua hal yang sering dilupakan",
+  "cta": "Follow",
+  "sales": false,
+  "caption": "Urusan PCOS nggak cuma soal makanan. Tidur dan stres ikut memengaruhi hormon dan nafsu makan.\n\n4 kebiasaan malam yang bisa dicoba:\n- Jam tidur yang konsisten\n- Kurangi layar 30 menit sebelum tidur\n- Hindari kafein di sore dan malam\n- 5 menit napas pelan atau menulis jurnal\n\nMulai satu dulu, jangan semuanya sekaligus.\n\nMau tips PCOS tiap hari? Follow @pcosmeal.lab.\n\nKonten edukasi, bukan pengganti konsultasi dokter.\n\n#pcos #pcosindonesia #pcosfriendly #sindromovariumpolikistik #hormonwanita #haidtidakteratur #tidursehat",
+  "slides": [
+   {
+    "t": "cover",
+    "title": "Tidur dan stres, dua hal yang sering dilupakan",
+    "sub": "(PCOS bukan cuma soal makanan)",
+    "cta": "Geser untuk baca"
+   },
+   {
+    "t": "point",
+    "title": "Tubuh yang kurang istirahat ikut terganggu",
+    "body": "Tidur dan stres memengaruhi hormon yang mengatur rasa lapar dan kenyang."
+   },
+   {
+    "t": "point",
+    "pill": "Kebiasaan 1",
+    "title": "Jam tidur konsisten",
+    "body": "Tidur dan bangun di jam yang sama, termasuk akhir pekan.",
+    "card": [
+     "Tips",
+     "Orang dewasa umumnya butuh sekitar 7 sampai 9 jam."
+    ]
+   },
+   {
+    "t": "point",
+    "pill": "Kebiasaan 2",
+    "title": "Kurangi layar sebelum tidur",
+    "body": "Taruh HP 30 menit sebelum tidur.",
+    "card": [
+     "Tips",
+     "Ganti dengan peregangan ringan atau membaca."
+    ]
+   },
+   {
+    "t": "point",
+    "pill": "Kebiasaan 3",
+    "title": "Batasi kafein di sore hari",
+    "body": "Kopi dan teh pekat bisa membuat susah tidur.",
+    "card": [
+     "Tips",
+     "Coba berhenti minum kafein setelah jam 3 sore."
+    ]
+   },
+   {
+    "t": "point",
+    "pill": "Kebiasaan 4",
+    "title": "5 menit tenang",
+    "body": "Napas pelan atau menulis jurnal singkat membantu pikiran lebih rileks."
+   },
+   {
+    "t": "cta",
+    "title": "Mau tips PCOS tiap hari?",
+    "body": "Follow @pcosmeal.lab supaya tidak ketinggalan.",
+    "bold": "Mulai satu kebiasaan dulu malam ini."
+   }
+  ]
+ },
+ {
+  "id": "d6",
+  "date": "2026-10-27",
+  "topic": "Siapkan 5 hal ini sebelum ke dokter",
+  "cta": "Screenshot",
+  "sales": false,
+  "caption": "Sebelum ke dokter, siapkan 5 hal ini supaya konsultasi lebih jelas:\n\n- Catatan siklus haid 3 sampai 6 bulan terakhir\n- Daftar keluhan dan sejak kapan\n- Obat dan suplemen yang kamu konsumsi\n- Riwayat keluarga (diabetes, PCOS, kolesterol)\n- Hasil lab atau USG sebelumnya\n\nScreenshot slide terakhir, simpan di galeri, lalu bawa saat periksa.\n\nKonten edukasi, bukan pengganti konsultasi dokter.\n\n#pcos #pcosindonesia #pcosfriendly #sindromovariumpolikistik #hormonwanita #haidtidakteratur #konsultasidokter",
+  "slides": [
+   {
+    "t": "cover",
+    "title": "Sebelum ke dokter, siapkan 5 hal ini",
+    "sub": "(biar konsultasi lebih jelas)",
+    "cta": "Geser untuk lihat daftarnya"
+   },
+   {
+    "t": "point",
+    "pill": "Siapkan 1",
+    "title": "Catatan siklus haid",
+    "body": "Tanggal mulai dan selesai haid selama 3 sampai 6 bulan terakhir."
+   },
+   {
+    "t": "point",
+    "pill": "Siapkan 2",
+    "title": "Daftar keluhan",
+    "body": "Tulis apa saja yang kamu rasakan dan sejak kapan mulai."
+   },
+   {
+    "t": "point",
+    "pill": "Siapkan 3",
+    "title": "Obat dan suplemen",
+    "body": "Semua yang sedang kamu konsumsi, termasuk vitamin dan obat tanpa resep."
+   },
+   {
+    "t": "point",
+    "pill": "Siapkan 4",
+    "title": "Riwayat keluarga",
+    "body": "Misalnya diabetes, PCOS, atau kolesterol tinggi pada keluarga dekat."
+   },
+   {
+    "t": "point",
+    "pill": "Siapkan 5",
+    "title": "Hasil lab atau USG lama",
+    "body": "Bawa hasil terakhir, walau menurutmu sudah tidak relevan.",
+    "card": [
+     "Tips",
+     "Tulis pertanyaanmu di catatan HP supaya tidak lupa."
+    ]
+   },
+   {
+    "t": "ctalist",
+    "title": "Screenshot checklist",
+    "body": "Simpan di galeri, lalu bawa saat periksa.",
+    "items": [
+     "Catatan siklus haid",
+     "Daftar keluhan",
+     "Obat dan suplemen",
+     "Riwayat keluarga",
+     "Hasil lab atau USG lama"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "d7",
+  "date": "2026-10-28",
+  "topic": "Daftar belanja PCOS friendly 1 minggu",
+  "cta": "Link di bio",
+  "sales": true,
+  "caption": "Belanja sekali, siap masak seminggu. Ini daftar belanja PCOS friendly yang bisa kamu bawa ke pasar:\n\n- Protein: telur, ikan, ayam tanpa kulit, tempe, tahu\n- Sayur: bayam, brokoli, buncis, kangkung, tomat\n- Karbo kompleks: beras merah, oat, ubi\n- Lemak baik: alpukat, kacang-kacangan\n- Buah: apel, pir, jeruk\n\nSimpan postingan ini untuk daftar belanja.\n\nBingung mau dimasak jadi apa? Menu 7 hari PCOS friendly dari dr. Davira Az Zahra ada di link bio.\n\nKonten edukasi, bukan pengganti konsultasi dokter.\n\n#pcos #pcosindonesia #pcosfriendly #sindromovariumpolikistik #hormonwanita #haidtidakteratur #daftarbelanja",
+  "slides": [
+   {
+    "t": "cover",
+    "title": "Daftar belanja PCOS friendly 1 minggu",
+    "sub": "(simpan, bawa ke pasar)",
+    "cta": "Geser untuk lihat daftarnya"
+   },
+   {
+    "t": "list",
+    "pill": "Protein",
+    "title": "Isi dulu proteinnya",
+    "tag": "Pilihan",
+    "items": [
+     "Telur",
+     "Ikan",
+     "Ayam tanpa kulit",
+     "Tempe dan tahu"
+    ]
+   },
+   {
+    "t": "list",
+    "pill": "Sayur",
+    "title": "Banyakin sayurnya",
+    "tag": "Pilihan",
+    "items": [
+     "Bayam dan kangkung",
+     "Brokoli",
+     "Buncis",
+     "Tomat"
+    ]
+   },
+   {
+    "t": "list",
+    "pill": "Karbo kompleks",
+    "title": "Pilih yang berserat",
+    "tag": "Pilihan",
+    "items": [
+     "Beras merah",
+     "Oat",
+     "Ubi"
+    ]
+   },
+   {
+    "t": "list",
+    "pill": "Lemak baik",
+    "title": "Secukupnya saja",
+    "tag": "Pilihan",
+    "items": [
+     "Alpukat",
+     "Kacang-kacangan"
+    ]
+   },
+   {
+    "t": "list",
+    "pill": "Buah",
+    "title": "Buah segar berserat",
+    "tag": "Pilihan",
+    "items": [
+     "Apel",
+     "Pir",
+     "Jeruk"
+    ]
+   },
+   {
+    "t": "point",
+    "title": "Belanja sekali, siapkan di akhir pekan",
+    "body": "Cuci dan potong sayur, rebus telur, masak nasi sekaligus supaya hari kerja lebih ringan."
+   },
+   {
+    "t": "sale",
+    "title": "Bingung mau dimasak jadi apa?"
+   }
+  ]
+ }
+]
