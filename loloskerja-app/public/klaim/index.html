@@ -54,6 +54,7 @@
     </form>
     <p class="msg" id="err" role="alert" hidden></p>
     <p class="msg wait" id="wait" role="status" hidden></p>
+    <p class="muted small help">Ada kendala? Chat admin di <a href="https://wa.me/62895340793245" style="color:var(--red);font-weight:700">WhatsApp 0895-3407-93245</a>.</p>
   </section>
 
   <section id="step-code" class="card" hidden>
@@ -68,6 +69,7 @@
       <li>Setelah app terbuka, ketuk <b>Pasang app</b> supaya ikonnya ada di layar utama.</li>
       <li>Link app: <b>loloskerja.pages.dev</b></li>
     </ul>
+    <p class="muted small help">Ada kendala? Chat admin di <a href="https://wa.me/62895340793245" style="color:var(--red);font-weight:700">WhatsApp 0895-3407-93245</a>.</p>
   </section>
 </main>
 <script>
@@ -94,7 +96,7 @@ async function run(phone, auto) {
     }
     if (data.pending) {
       show($("err"), ""); show($("wait"), `${data.message} (cek ke-${++tries})`);
-      if (!timer) timer = setInterval(() => { if (tries > 36) { clearInterval(timer); show($("wait"), "Pembayaran belum terkonfirmasi. Kalau kamu sudah bayar, coba lagi beberapa menit lagi atau hubungi admin."); return; } run(phone, true); }, 5000);
+      if (!timer) timer = setInterval(() => { if (tries > 36) { clearInterval(timer); show($("wait"), "Pembayaran belum terkonfirmasi. Kalau kamu sudah bayar, coba lagi beberapa menit lagi atau chat admin lewat WhatsApp di bawah."); return; } run(phone, true); }, 5000);
       return;
     }
     show($("wait"), ""); show($("err"), data.error || "Kode belum bisa diambil. Coba lagi.");
