@@ -14,11 +14,16 @@ export async function onRequestPost({ request, env }) {
   const cfg = await getCfg(env);
   // Scalev sends a test event when the webhook settings are saved; accept it so saving works.
   if (ev.event === "business.test_event") {
-    await env.CODES.put("cfg:scalev:last_test", JSON.stringify({ at: new Date().toISOString(), signed_ok: await verifyScalev(cfg.secret, raw, request.headers.get("x-scalev-hmac-sha256")) }));
+    const sig = request.headers.get("x-scalev-hmac-sha256") || "";
+    // keep the (non-sensitive) test body + signature so the admin page can re-check it against a secret saved later
+    await env.CODES.put("cfg:scalev:last_test", JSON.stringify({ at: new Date().toISOString(), signed_ok: await verifyScalev(cfg.secret, raw, sig), has_sig: !!sig, sig, body: new TextDecoder().decode(raw).slice(0, 4000) }));
     return new Response(null, { status: 204 });
   }
   if (!cfg.secret) return json({ error: "signing secret not configured" }, 503);
-  if (!(await verifyScalev(cfg.secret, raw, request.headers.get("x-scalev-hmac-sha256")))) return json({ error: "invalid signature" }, 401);
+  if (!(await verifyScalev(cfg.secret, raw, request.headers.get("x-scalev-hmac-sha256")))) {
+    await env.CODES.put("cfg:scalev:last_bad", JSON.stringify({ at: new Date().toISOString(), event: ev.event || "", has_sig: !!request.headers.get("x-scalev-hmac-sha256") }), { expirationTtl: 60 * 60 * 24 * 7 });
+    return json({ error: "invalid signature" }, 401);
+  }
   if (!ev.unique_id || !ev.data || !ev.data.id) return json({ error: "missing fields" }, 400);
   if (await env.CODES.get(`evt:${ev.unique_id}`)) return new Response(null, { status: 204 });
 

@@ -159,7 +159,9 @@ async function loadCfg() {
   const c = await r.json();
   $("#sc-url").value = c.webhookUrl; $("#sc-claim").textContent = location.origin + "/klaim";
   $("#sc-variants").value = (c.variants || []).join("\n");
-  const t = c.lastTest ? ` Tes terakhir dari Scalev: ${new Date(c.lastTest.at).toLocaleString("id-ID")} (${c.lastTest.signed_ok ? "tanda tangan cocok" : "tanda tangan belum cocok"}).` : "";
+  const when = (x) => new Date(x).toLocaleString("id-ID");
+  let t = c.lastTest ? ` Tes terakhir dari Scalev: ${when(c.lastTest.at)} (${c.lastTest.signed_ok ? "tanda tangan cocok ✓" : c.lastTest.has_sig === false ? "tanpa tanda tangan" : "tanda tangan TIDAK cocok: cek lagi Signing Secret-nya"}).` : " Belum ada tes dari Scalev.";
+  if (c.lastBad && (!c.lastTest || !c.lastTest.signed_ok || c.lastBad.at > c.lastTest.at)) t += ` Ditolak ${when(c.lastBad.at)}: event ${c.lastBad.event} dengan tanda tangan tidak cocok.`;
   $("#sc-status").innerHTML = (c.hasSecret ? '<span class="pill">Signing Secret tersimpan</span>' : '<span class="pill off">Signing Secret belum diisi</span>') + esc(t);
 }
 $("#sc-copy").addEventListener("click", (e) => copy($("#sc-url").value, e.target));
