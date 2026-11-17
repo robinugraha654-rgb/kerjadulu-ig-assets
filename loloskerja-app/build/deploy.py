@@ -7,13 +7,13 @@ branch = sys.argv[1] if len(sys.argv) > 1 else "main"
 shutil.rmtree(DIST, ignore_errors=True); os.makedirs(DIST)
 # embed every file of public/ into the worker
 import base64
-TYPES = {".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".webmanifest": "application/manifest+json", ".png": "image/png", ".json": "application/json"}
+TYPES = {".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".webmanifest": "application/manifest+json", ".png": "image/png", ".json": "application/json", ".css": "text/css; charset=utf-8", ".jpg": "image/jpeg", ".svg": "image/svg+xml"}
 static = {}
 for d, _, fs in os.walk(os.path.join(ROOT, "public")):
     for f in fs:
         fp = os.path.join(d, f); rel = "/" + os.path.relpath(fp, os.path.join(ROOT, "public")).replace(os.sep, "/")
         ext = os.path.splitext(f)[1]; data = open(fp, "rb").read()
-        cache = "no-cache" if ext in (".html", ".js", ".webmanifest") else "public, max-age=86400"
+        cache = "no-cache" if ext in (".html", ".js", ".css", ".webmanifest") else "public, max-age=86400"
         entry = {"type": TYPES.get(ext, "application/octet-stream"), "cache": cache}
         if ext == ".png": entry["b64"] = base64.b64encode(data).decode()
         else: entry["text"] = data.decode("utf-8")
