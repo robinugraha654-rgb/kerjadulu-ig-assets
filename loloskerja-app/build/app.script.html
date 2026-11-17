@@ -1,0 +1,676 @@
+
+<script>
+const KIT = JSON.parse(document.getElementById("kit-data").textContent);
+
+/* ---------------- content kept from the bonus PDFs + landing page ---------------- */
+const PLAN = [
+  ["Diagnosa", 60, "10 soal pertama dari tiap set dan 2 kolom koran. Tahu dulu set mana yang paling lemah."],
+  ["Hitung dan pola", 60, "Set 1 dan Set 2 penuh."],
+  ["Logika dan koran", 50, "Set 3 penuh dan 3 kolom koran."],
+  ["Wawasan dan K3", 60, "Set 4 dan Set 5 penuh."],
+  ["Perkuat yang lemah", 75, "Ulang 2 set dengan skor terendah dan 6 kolom koran."],
+  ["Evaluasi", 60, "Kerjakan ulang soal yang dulu salah dan catat alasannya."],
+  ["Simulasi penuh", 150, "Set 1 sampai 5 berurutan dengan timer, plus tes koran."],
+];
+const DOCS = [
+  ["Wajib dibawa", "hampir selalu diminta", ["KTP (asli untuk diperlihatkan, fotokopi 2 lembar)", "Kartu Keluarga (fotokopi)", "Ijazah terakhir (fotokopi; yang asli hanya untuk diperlihatkan)", "Transkrip nilai atau SKHUN (fotokopi)", "Pas foto terbaru (ukuran dan warna latar sesuai permintaan)", "CV (cetak 2 lembar)", "Surat lamaran (tulis tangan atau cetak, sesuai permintaan)"]],
+  ["Sering diminta di tahap lanjut", "", ["SKCK yang masih berlaku", "Surat keterangan sehat dari dokter atau puskesmas", "NPWP (kalau sudah punya)", "Kartu BPJS (kalau sudah punya)", "Nomor rekening bank aktif"]],
+  ["Nilai tambah", "kalau ada", ["Sertifikat pelatihan atau kursus (fotokopi)", "Surat keterangan pengalaman kerja atau magang / PKL", "Sertifikat vaksin atau hasil medical check-up (kalau diminta)"]],
+];
+const TIPS = ["Pakai map plastik atau folder, dikelompokkan per jenis berkas.", "Simpan foto atau scan semua berkas di HP dan cloud, jaga-jaga ada yang tertinggal.", "Bawa pulpen hitam cadangan dan satu set fotokopi cadangan.", "Pastikan nama dan tanggal lahir di semua dokumen sama persis.", "<b>Dokumen asli (terutama ijazah) cukup diperlihatkan.</b> Jangan serahkan untuk ditahan perusahaan. Kalau diminta, tanyakan dasarnya ke Disnaker atau sumber resmi.", "<b>Jangan membayar biaya apa pun</b> untuk \"mengurus berkas\" atau \"mempercepat diterima\"."];
+const TERMS = [
+  ["PKWT", "Perjanjian Kerja Waktu Tertentu", "Biasa disebut karyawan kontrak. Kerja dengan jangka waktu tertentu, misalnya 6 bulan atau 1 tahun. Setelah itu kontrak bisa selesai atau diperpanjang sesuai aturan."],
+  ["PKWTT", "Perjanjian Kerja Waktu Tidak Tertentu", "Biasa disebut karyawan tetap. Tidak ada batas waktu kontrak."],
+  ["Masa percobaan", "probation", "Periode awal untuk dinilai perusahaan. Menurut aturan ketenagakerjaan, masa percobaan hanya untuk karyawan tetap (PKWTT) dan paling lama 3 bulan. Kontrak PKWT tidak boleh memuat masa percobaan. Cek aturan terbaru ke Disnaker."],
+  ["UMK / UMP", "upah minimum", "Upah minimum kabupaten/kota (UMK) atau provinsi (UMP). Batas terendah gaji yang boleh dibayar perusahaan di wilayahmu. Besarnya berbeda tiap daerah dan berubah tiap tahun, jadi cek angka terbaru di situs Disnaker daerahmu."],
+  ["Gaji pokok dan tunjangan", "", "Gaji pokok adalah upah dasar. Tunjangan (transport, makan, dll.) adalah tambahan. Tanyakan rincian keduanya, karena \"total gaji\" yang ditawarkan bisa terdiri dari beberapa komponen."],
+  ["Take home pay", "", "Uang yang benar-benar kamu terima setelah dipotong (BPJS, pajak, dll.)."],
+  ["Jam kerja", "", "Secara umum 40 jam seminggu, misalnya 8 jam sehari 5 hari kerja atau 7 jam sehari 6 hari kerja. Kerja di luar itu dihitung lembur."],
+  ["Lembur", "", "Kerja melebihi jam kerja normal. Pekerja berhak mendapat upah lembur sesuai ketentuan. Pastikan ada persetujuan atau surat perintah lembur."],
+  ["Shift", "", "Pembagian jam kerja (pagi, siang, malam). Tanyakan sistem shift dan apakah ada tambahan uang shift."],
+  ["BPJS Kesehatan & Ketenagakerjaan", "", "Jaminan kesehatan dan jaminan kerja (kecelakaan kerja, kematian, hari tua, pensiun). Perusahaan wajib mendaftarkan pekerjanya. Tanyakan apakah kamu didaftarkan."],
+  ["Cuti tahunan", "", "Umumnya 12 hari kerja setelah bekerja 12 bulan terus-menerus."],
+  ["THR", "Tunjangan Hari Raya", "Diberikan menjelang hari raya keagamaan kepada pekerja yang sudah bekerja minimal 1 bulan."],
+  ["Slip gaji", "", "Rincian gaji bulanan. Wajar kalau kamu memintanya."],
+  ["Paklaring", "", "Surat keterangan pernah bekerja di sebuah perusahaan. Berguna untuk lamaran berikutnya."],
+  ["Outsourcing / alih daya", "", "Kamu dikontrak oleh perusahaan penyalur, lalu ditempatkan bekerja di perusahaan lain. Pastikan jelas siapa yang menggaji dan perusahaan penyalurnya terdaftar resmi."],
+  ["Magang / PKL", "", "Bukan hubungan kerja biasa. Cek apakah ada uang saku dan berapa lama jangka waktunya."],
+];
+const SIGN = ["Jenis kontrak (PKWT atau PKWTT) dan lama kontraknya", "Gaji pokok, tunjangan, dan tanggal gajian", "Jam kerja, shift, dan aturan lembur", "BPJS dan hak cuti", "Salinan kontrak yang kamu pegang sendiri", "Tidak ada biaya yang diminta darimu untuk bisa bekerja"];
+const STAGES = ["Kirim berkas", "Tes", "Interview", "Diterima", "Ditolak"];
+const STAGE_C = ["var(--mute)", "var(--or2)", "var(--or)", "var(--ok)", "var(--bad)"];
+const LETTERS = "ABCDE";
+
+/* ---------------- state (this device only; same key as before so progress carries over) ---------------- */
+const KEY = "kerjadulu-proto-v1";
+const blank = () => ({ plan: [], docs: [], sign: [], koran: [], jobs: null, berkasTab: "checklist", best: {}, last: {}, ready: [] });
+let S = blank();
+try { S = Object.assign(blank(), JSON.parse(localStorage.getItem(KEY) || "{}")); } catch (e) {}
+if (!S.jobs) S.jobs = [
+  { id: 1, co: "PT Contoh Garmen Nusantara", pos: "Operator Produksi", date: "2026-11-03", stage: 2, example: true },
+  { id: 2, co: "PT Contoh Elektronik Jaya", pos: "Staf Gudang", date: "2026-11-06", stage: 0, example: true },
+];
+const pad2d = (n) => String(n).padStart(2, "0");
+const dkey = (d) => `${d.getFullYear()}-${pad2d(d.getMonth() + 1)}-${pad2d(d.getDate())}`;
+const save = () => {
+  try {
+    S.hist = S.hist || {};
+    S.hist[dkey(new Date())] = readyNow();
+    const ks = Object.keys(S.hist).sort(); while (ks.length > 60) delete S.hist[ks.shift()];
+  } catch (e) {}
+  try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {}
+};
+const toggle = (arr, k) => { const i = arr.indexOf(k); if (i < 0) arr.push(k); else arr.splice(i, 1); };
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const app = document.getElementById("app");
+const docCount = DOCS.reduce((n, g) => n + g[2].length, 0);
+const bestKoran = () => S.koran.reduce((b, r) => (r.speed > (b ? b.speed : -1) ? r : b), null);
+const wrongIds = () => Object.keys(S.last).filter((k) => S.last[k] === 0);
+const totalBest = () => KIT.sets.reduce((n, _, i) => n + (S.best[i] || 0), 0);
+function readyNow() {
+  const best = bestKoran();
+  const parts = [S.plan.length / 7, S.docs.length / docCount, best ? Math.min(1, best.speed / 40) : 0, totalBest() / (KIT.sets.length * 30), S.ready.length / 40];
+  return Math.round((parts.reduce((a, b) => a + b, 0) / parts.length) * 100);
+}
+const DAYS = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+function weekHist() {
+  const H = S.hist || {}, ks = Object.keys(H).sort(), out = [];
+  const start = new Date(); start.setDate(start.getDate() - 6);
+  let carry = null; ks.forEach((k) => { if (k < dkey(start)) carry = H[k]; });
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(); d.setDate(d.getDate() - i);
+    const k = dkey(d); if (H[k] != null) carry = H[k];
+    out.push({ label: DAYS[d.getDay()], v: carry, today: i === 0 });
+  }
+  return out;
+}
+
+/* ---------------- motion helpers ---------------- */
+let REDUCE = false; try { REDUCE = matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+let ENTER = false, lastKey = null, prevReady = 0, toastT = null, lastTab = null;
+const CHECK = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>`;
+const tick = () => `<span class="tick">${CHECK}</span>`;
+const num = (to, from, suf = "") => `<b data-count="${to}" data-from="${ENTER ? from : to}" data-suf="${suf}">${to}${suf}</b>`;
+function countUp(el) {
+  const to = +el.dataset.count, from = +el.dataset.from, suf = el.dataset.suf || "";
+  if (REDUCE || from === to || isNaN(to)) return;
+  const t0 = performance.now(), dur = Math.min(1200, 450 + Math.abs(to - from) * 18);
+  el.textContent = from + suf;
+  const step = (now) => { const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(from + (to - from) * e) + suf; if (p < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+function toast(msg) {
+  const t = document.getElementById("toast"); t.textContent = msg;
+  t.classList.remove("show"); void t.offsetWidth; t.classList.add("show");
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 1900);
+}
+function burst(host) {
+  if (REDUCE || !host) return;
+  const box = document.createElement("div"); box.className = "burst"; box.setAttribute("aria-hidden", "true");
+  const cols = ["var(--or)", "var(--ok)", "var(--fg)", "var(--or2)"];
+  for (let i = 0; i < 28; i++) {
+    const s = document.createElement("i"), a = Math.random() * Math.PI * 2, r = 70 + Math.random() * 110;
+    s.style.cssText = `--x:${(Math.cos(a) * r).toFixed(0)}px;--y:${(Math.sin(a) * r - 60).toFixed(0)}px;--r:${(Math.random() * 600 - 300).toFixed(0)}deg;--c:${cols[i % 4]};--d:${(Math.random() * 120).toFixed(0)}ms`;
+    box.appendChild(s);
+  }
+  host.appendChild(box); setTimeout(() => box.remove(), 1500);
+}
+
+function topBar(title) {
+  return `<div class="top"><div class="brand"><span class="logo">${CHECK}</span>loloskerja</div><span class="proto">Prototipe</span></div>${title || ""}`;
+}
+
+/* ================= BERANDA ================= */
+const greet = () => { const h = new Date().getHours(); return h < 11 ? "Selamat pagi" : h < 15 ? "Selamat siang" : h < 18 ? "Selamat sore" : "Selamat malam"; };
+function gauge(ready, from) {
+  const N = 40, lit = Math.round((ready / 100) * N), litFrom = Math.round((from / 100) * N);
+  const ang = (p) => -135 + (p / 100) * 270;
+  let t = "";
+  for (let k = 0; k < N; k++) {
+    const a = ((-135 + k * (270 / (N - 1))) * Math.PI) / 180, r1 = k % 5 === 0 ? 41 : 45, r2 = 52;
+    const on = k < lit, nw = on && k >= litFrom;
+    t += `<line class="tk${on ? " on" : ""}${nw ? " new" : ""}" style="--k:${nw ? k - litFrom : 0}" x1="${(60 + Math.sin(a) * r1).toFixed(1)}" y1="${(60 - Math.cos(a) * r1).toFixed(1)}" x2="${(60 + Math.sin(a) * r2).toFixed(1)}" y2="${(60 - Math.cos(a) * r2).toFixed(1)}"/>`;
+  }
+  return `<div class="gauge" role="img" aria-label="Kesiapan ${ready} persen"><svg viewBox="0 0 120 120" aria-hidden="true">${t}<g class="needle" data-to="${ang(ready)}" style="transform:rotate(${ang(from)}deg)"><line x1="60" y1="60" x2="60" y2="37"/><circle cx="60" cy="60" r="5"/></g></svg><div class="gread">${num(ready, from)}<span>% siap</span></div></div>`;
+}
+function viewBeranda() {
+  const best = bestKoran();
+  const ready = readyNow();
+  if (!S.hist || S.hist[dkey(new Date())] !== ready) save();
+  const from = ENTER ? 0 : prevReady; prevReady = ready;
+  const next = PLAN.findIndex((_, i) => !S.plan.includes(i));
+  const wk = weekHist();
+  const known = wk.filter((d) => d.v != null);
+  const yest = wk[5].v, delta = yest == null ? null : ready - yest;
+  const X = (i) => 14 + i * (292 / 6), Y = (v) => 120 - v * 1.1;
+  const pts = wk.map((d, i) => (d.v == null ? null : [X(i), Y(d.v)])).filter(Boolean);
+  const line = pts.map((p, i) => `${i ? "L" : "M"}${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(" ");
+  const area = pts.length > 1 ? `${line} L${pts[pts.length - 1][0].toFixed(1)} 120 L${pts[0][0].toFixed(1)} 120 Z` : "";
+  const end = pts[pts.length - 1];
+  const msg = known.length < 2 ? "Grafik ini terisi sendiri tiap hari kamu latihan. Balik lagi besok, ya."
+    : delta > 0 ? `Naik ${delta}% dari kemarin. Pertahankan!`
+    : delta < 0 ? "Turun sedikit dari kemarin. Ayo kejar lagi."
+    : next >= 0 ? `Belum naik hari ini. Lanjut ke Hari ${next + 1}: ${PLAN[next][0]}.` : "Stabil. Ulang soal yang salah biar makin mantap.";
+  const chip = delta == null ? `<span class="delta">Hari pertama</span>` : `<span class="delta ${delta > 0 ? "up" : ""}">${delta > 0 ? "▲ +" : delta < 0 ? "▼ " : ""}${delta}% hari ini</span>`;
+  return `${topBar()}
+    <section class="hello"><p class="muted">${greet()}. Lolos tes &amp; interview pabrik,</p><h1>tanpa <span class="hl">tebak&#8209;tebakan</span><span class="dot">.</span></h1></section>
+    ${installCard()}
+    <section class="card rcard">
+      <span class="sticker" aria-hidden="true">Gas terus!</span>
+      <span class="eyebrow">Kesiapan kamu</span>
+      <div class="trend-top"><span class="trend-big" role="img" aria-label="Kesiapan ${ready} persen">${num(ready, from)}<small>%</small></span>${chip}</div>
+      <div class="trend"><svg viewBox="0 0 320 132" aria-hidden="true">
+        <line class="tr-base" x1="14" y1="120" x2="306" y2="120"/>
+        <line class="tr-grid" x1="14" y1="76" x2="306" y2="76"/><line class="tr-grid" x1="14" y1="32" x2="306" y2="32"/>
+        <text class="tr-lbl" x="14" y="27">80%</text><text class="tr-lbl" x="14" y="71">40%</text>
+        ${area ? `<path class="tr-area" d="${area}"/>` : ""}
+        ${pts.length > 1 ? `<path class="tr-line" pathLength="1" d="${line}"/>` : ""}
+        ${end ? `<circle class="tr-pulse" cx="${end[0].toFixed(1)}" cy="${end[1].toFixed(1)}" r="7"/><circle class="tr-dot" cx="${end[0].toFixed(1)}" cy="${end[1].toFixed(1)}" r="6"/>` : ""}
+      </svg></div>
+      <div class="tr-days">${wk.map((d) => `<span class="${d.today ? "today" : ""}">${d.label}</span>`).join("")}</div>
+      <p class="muted small">${msg}</p>
+    </section>
+    <section class="stats">
+      <div class="stat">${num(totalBest(), 0)}<span>skor soal dari 150</span></div>
+      <div class="stat"><b>${S.ready.length}/40</b><span>jawaban interview siap</span></div>
+      <div class="stat">${best ? num(best.speed, 0) : "<b>–</b>"}<span>koran per menit</span></div>
+    </section>
+    <section class="card">
+      <div class="row between"><h2>Rencana 7 hari</h2><span class="chip or" id="plan-chip">${S.plan.length} dari 7</span></div>
+      <div class="plan">${PLAN.map((d, i) => `
+        <button class="day ${S.plan.includes(i) ? "done" : ""} ${i === next ? "next" : ""}" data-plan="${i}" aria-pressed="${S.plan.includes(i)}">
+          ${tick()}
+          <span class="dbody"><span class="dt">Hari ${i + 1} · ${d[0]}</span><span class="muted small">${d[2]}</span></span>
+          ${i === next ? `<span class="go-chip">Mulai →</span>` : `<span class="dmin">${d[1]} mnt</span>`}
+        </button>`).join("")}</div>
+    </section>
+    <section class="card cta-koran">
+      <span class="wm" aria-hidden="true">60s</span>
+      <span class="eyebrow">Latihan cepat</span>
+      <h2>Tes koran per lajur</h2>
+      <p style="opacity:.85;max-width:30ch">Jumlahkan dua angka, tulis angka terakhirnya. Mulai dari sprint 4 lajur × 15 detik.</p>
+      <a class="btn" href="#latihan">Mulai latihan <span class="arr">→</span></a>
+    </section>`;
+}
+
+/* ================= LATIHAN: tes koran ================= */
+// Kraepelin-style: several lanes (lajur), each with its own time limit. Sum each pair going up, write the last digit.
+const KMODES = {
+  sprint: { lanes: 4, sec: 15, label: "Sprint 1 menit", sub: "4 lajur × 15 detik. Pemanasan cepat." },
+  tahan: { lanes: 10, sec: 30, label: "Ketahanan 5 menit", sub: "10 lajur × 30 detik. Mirip tes asli." },
+};
+const RH = 56; // row height on the paper strip
+let K = null;
+const rnd = () => 1 + Math.floor(Math.random() * 9);
+const laneNums = () => Array.from({ length: 90 }, rnd);
+const pad2 = (n) => String(n).padStart(2, "0");
+const X_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>`;
+const UP_ICON = `<svg class="kup" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>`;
+
+function koranStart(mode) {
+  const m = KMODES[mode] || KMODES.sprint;
+  K = { mode, lanes: m.lanes, sec: m.sec, lane: 0, nums: laneNums(), pos: 0, right: 0, wrong: 0,
+    laneRight: Array(m.lanes).fill(0), laneWrong: Array(m.lanes).fill(0), laneEnd: Date.now() + m.sec * 1000, timer: null,
+    combo: 0, maxCombo: 0, trail: [], start: Date.now(), lastAt: 0 };
+  K.timer = setInterval(koranTick, 200);
+  render(); window.scrollTo(0, 0);
+}
+function koranTick() {
+  if (!K || K.done) return;
+  if (Date.now() >= K.laneEnd) {
+    if (K.lane + 1 >= K.lanes) { koranFinish(); return; }
+    nextLane();
+  }
+  paintKoran();
+}
+function nextLane() {
+  K.lane++; K.nums = laneNums(); K.pos = 0; K.laneEnd = Date.now() + K.sec * 1000;
+  const wrap = document.getElementById("kstrip-wrap");
+  if (wrap) { wrap.innerHTML = stripHTML(); wrap.classList.remove("lane-in"); void wrap.offsetWidth; wrap.classList.add("lane-in"); }
+  const fl = document.getElementById("kflash");
+  if (fl) { fl.textContent = `Lajur ${K.lane + 1}: mulai lagi dari bawah`; fl.classList.remove("show"); void fl.offsetWidth; fl.classList.add("show"); }
+  const sub = document.getElementById("ksub"); if (sub) sub.textContent = `Lajur ${K.lane + 1} dari ${K.lanes}`;
+}
+function koranFinish() {
+  if (!K || K.done) return;
+  clearInterval(K.timer);
+  const total = K.right + K.wrong, prev = bestKoran();
+  const elapsedSec = K.lane * K.sec + (K.sec - Math.max(0, (K.laneEnd - Date.now()) / 1000));
+  const minutes = Math.max(elapsedSec, 15) / 60;
+  const lanes = K.laneRight.map((r, i) => r + K.laneWrong[i]).slice(0, K.lane + 1);
+  const rec = { at: Date.now(), speed: Math.round(total / minutes), acc: total ? Math.round((K.right / total) * 100) : 0, right: K.right, wrong: K.wrong, lanes, mode: K.mode, maxCombo: K.maxCombo };
+  const isBest = total > 0 && (!prev || rec.speed > prev.speed);
+  S.koran.push(rec); S.koran = S.koran.slice(-20); save();
+  K = { done: rec, isBest };
+  render();
+}
+function koranKey(d) {
+  if (!K || K.done) return;
+  const ok = d === (K.nums[K.pos] + K.nums[K.pos + 1]) % 10;
+  if (ok) { K.right++; K.laneRight[K.lane]++; } else { K.wrong++; K.laneWrong[K.lane]++; }
+  const broke = !ok && K.combo >= 3;
+  K.combo = ok ? K.combo + 1 : 0; K.maxCombo = Math.max(K.maxCombo, K.combo);
+  K.trail.push(ok); if (K.trail.length > 10) K.trail.shift(); K.lastAt = Date.now();
+  const strip = document.getElementById("kstrip");
+  if (strip) {
+    const a = document.createElement("span");
+    a.className = "kans" + (ok ? "" : " bad"); a.style.bottom = `${K.pos * RH + RH / 2}px`; a.textContent = d;
+    strip.appendChild(a);
+  }
+  K.pos++;
+  if (K.pos > K.nums.length - 12) {
+    const more = Array.from({ length: 40 }, rnd), base = K.nums.length;
+    K.nums.push(...more);
+    if (strip) strip.insertAdjacentHTML("beforeend", more.map((n, j) => rowHTML(n, base + j)).join(""));
+  }
+  const key = app.querySelector(`[data-key="${d}"]`), fr = document.getElementById("kframe");
+  [[key, "hit-"], [fr, ""]].forEach(([el, p]) => {
+    if (!el) return;
+    el.classList.remove(p + "ok", p + "bad"); void el.offsetWidth; el.classList.add(p + (ok ? "ok" : "bad"));
+    clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove(p + "ok", p + "bad"), 220);
+  });
+  paintKoran();
+}
+const rowHTML = (n, i) => `<span class="kn${i === K.pos || i === K.pos + 1 ? " act" : ""}" data-i="${i}" style="bottom:${i * RH}px"><i>${n}</i></span>`;
+const stripHTML = () => `<div class="kstrip" id="kstrip" style="transform:translateY(${K.pos * RH}px)">${K.nums.map(rowHTML).join("")}</div>`;
+function flashPill(t) {
+  const fl = document.getElementById("kflash"); if (!fl) return;
+  fl.textContent = t; fl.classList.remove("show"); void fl.offsetWidth; fl.classList.add("show");
+}
+function gameFx(ok, broke) {
+  const view = document.querySelector(".kview"), cb = document.getElementById("kcombo");
+  if (ok && view && !REDUCE) {
+    const p = document.createElement("span"); p.className = "kplus"; p.textContent = K.combo >= 5 ? `+1 ×${K.combo}` : "+1";
+    view.appendChild(p); setTimeout(() => p.remove(), 750);
+  }
+  if (cb) { cb.classList.remove("bump", "broken"); void cb.offsetWidth; cb.classList.add(ok ? "bump" : "broken"); }
+  if (ok && K.combo > 0 && K.combo % 10 === 0) { flashPill(`Combo ×${K.combo}! Mantap`); if (view) burst(view); }
+  else if (broke) flashPill("Combo putus. Teliti dulu, baru cepat.");
+}
+function paintKoran() {
+  const box = document.getElementById("koran-live"); if (!box || !K || K.done) return;
+  const ms = Math.max(0, K.laneEnd - Date.now()), left = Math.ceil(ms / 1000), urgent = left <= 5;
+  const tm = document.getElementById("ktimer");
+  tm.textContent = `${pad2(Math.floor(left / 60))}:${pad2(left % 60)}`;
+  tm.classList.toggle("urgent", urgent);
+  const segs = box.querySelector(".ksegs"); segs.classList.toggle("urgent", urgent);
+  segs.querySelectorAll("i").forEach((s, i) => {
+    s.classList.toggle("cur", i === K.lane);
+    s.firstElementChild.style.width = i < K.lane ? "100%" : i === K.lane ? `${(1 - ms / (K.sec * 1000)) * 100}%` : "0%";
+  });
+  document.getElementById("kstrip").style.transform = `translateY(${K.pos * RH}px)`;
+  document.getElementById("k-lane").textContent = K.laneRight[K.lane] + K.laneWrong[K.lane];
+  document.getElementById("k-total").textContent = K.right + K.wrong;
+  document.getElementById("khint").classList.toggle("gone", K.right + K.wrong > 0);
+  const strip = document.getElementById("kstrip");
+  strip.querySelectorAll(".kn.act").forEach((r) => r.classList.remove("act"));
+  [K.pos, K.pos + 1].forEach((i) => { const r = strip.querySelector(`[data-i="${i}"]`); if (r) r.classList.add("act"); });
+}
+function koranFocus() {
+  return `<div class="kf" id="koran-live">
+    <div class="kf-top">
+      <button class="kx" data-koran-stop aria-label="Selesai sekarang">${X_ICON}</button>
+      <div class="kf-title"><b>Tes Koran</b><span id="ksub">Lajur ${K.lane + 1} dari ${K.lanes}</span></div>
+      <span class="timer" id="ktimer">00:${pad2(K.sec)}</span>
+    </div>
+    <div class="ksegs" aria-hidden="true">${Array.from({ length: K.lanes }, () => "<i><b></b></i>").join("")}</div>
+    <div class="kview" aria-hidden="true">
+      <div class="kpaper">
+        <div class="kframe" id="kframe"></div>
+        <div class="kstrip-wrap" id="kstrip-wrap">${stripHTML()}</div>
+        <span class="kcaret"></span>${UP_ICON}
+      </div>
+      <span class="kflash" id="kflash"></span>
+      <span class="khint" id="khint">Ketik angka terakhir dari jumlahnya</span>
+    </div>
+    <div class="kcount"><span>Lajur ini<b id="k-lane">0</b></span><span>Total<b id="k-total">0</b></span></div>
+    <div class="keypad">${[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((d) => `<button class="key${d === 0 ? " zero" : ""}" data-key="${d}" aria-label="Jawab ${d}">${d}</button>`).join("")}</div>
+  </div>`;
+}
+function laneVerdict(l) {
+  if (!l || l.length < 2) return "Coba mode Ketahanan untuk melihat grafik ritmemu dari lajur ke lajur.";
+  const first = l[0], last = l[l.length - 1], max = Math.max(...l), min = Math.min(...l);
+  if (first && (first - last) / first > 0.25) return "Jumlahmu turun di lajur akhir. Latih ketahanan supaya ritmenya bertahan sampai selesai.";
+  if (max - min <= Math.max(2, max * 0.2)) return "Ritmemu stabil dari lajur ke lajur. Grafik yang rata seperti ini yang dicari penilai.";
+  return "Naik turun sedikit masih wajar. Usahakan jumlah tiap lajur mirip, jangan ngebut di awal.";
+}
+function koranCard() {
+  const last = K && K.done, best = bestKoran();
+  const lanes = last && last.lanes, maxL = lanes ? Math.max(1, ...lanes) : 1;
+  return `<section class="card" id="koran-card">
+    <div class="row between" style="align-items:flex-start"><div><span class="eyebrow">Tes koran · Kraepelin</span><h2 style="margin-top:4px">${last ? "Hasil tes koran" : "Latihan per lajur"}</h2></div>${best ? `<span class="chip or">Terbaik ${best.speed}/mnt</span>` : ""}</div>
+    ${last ? `<div class="result">
+        <div class="stat">${num(last.speed, 0)}<span>jawaban per menit</span></div>
+        <div class="stat">${num(last.acc, 0, "%")}<span>ketelitian</span></div>
+        <div class="stat">${last.maxCombo != null ? num(last.maxCombo, 0, "") : num(last.right, 0)}<span>${last.maxCombo != null ? "combo terbaik" : "benar"}</span></div>
+      </div>
+      ${lanes && lanes.length ? `<div><span class="eyebrow" style="color:var(--mute)">Grafik kerja per lajur</span>
+        <div class="kchart">${lanes.map((v, i) => `<div class="kbar" style="--n:${i}"><b>${v}</b><i style="--h:${(v / maxL) * 100}%"></i></div>`).join("")}</div>
+        <div class="kaxis">${lanes.map((_, i) => `<span>${i + 1}</span>`).join("")}</div></div>
+      <p class="muted small">${K.isBest ? "<b style=\"color:var(--or)\">Rekor baru.</b> " : ""}${laneVerdict(lanes)}${last.acc < 95 ? " Targetkan salah di bawah 5 persen." : ""}</p>` : ""}`
+    : `<p class="muted">Kertas berisi kolom angka. Jumlahkan tiap dua angka berurutan dari bawah ke atas, tulis angka terakhirnya. Saat waktu lajur habis, pindah ke lajur berikutnya.</p>`}
+    <div class="modepick kmodes">${Object.entries(KMODES).map(([k, m]) => `<button class="mode" data-koran-start="${k}"><b>${m.label}</b><span>${m.sub}</span></button>`).join("")}</div>
+  </section>`;
+}
+/* ================= LATIHAN: question sets ================= */
+let Q = null, justPick = false;
+const qById = (id) => { const [s, n] = id.split("-").map(Number); return KIT.sets[s].qs[n]; };
+function quizStart(set, mode) {
+  const order = mode === "salah" ? wrongIds() : KIT.sets[set].qs.map((_, n) => `${set}-${n}`);
+  if (!order.length) return;
+  if (Q) clearInterval(Q.timer);
+  Q = { set, mode, order, i: 0, picks: {}, done: false };
+  if (mode === "simulasi") {
+    Q.end = Date.now() + KIT.sets[set].minutes * 60000;
+    Q.timer = setInterval(() => { if (Date.now() >= Q.end) quizFinish(); else paintQuizTimer(); }, 1000);
+  }
+  lastKey = null;
+  if (location.hash !== "#latihan") location.hash = "#latihan"; else { render(); window.scrollTo(0, 0); }
+}
+function quizFinish() {
+  if (!Q || Q.done) return;
+  clearInterval(Q.timer);
+  let right = 0;
+  Q.order.forEach((id) => {
+    const p = Q.picks[id];
+    if (p === undefined) return;
+    const ok = p === qById(id).a ? 1 : 0;
+    right += ok; S.last[id] = ok;
+  });
+  if (Q.mode !== "salah") S.best[Q.set] = Math.max(S.best[Q.set] || 0, right);
+  save();
+  Q.done = true; Q.right = right;
+  render(); window.scrollTo(0, 0);
+  if (right / Q.order.length >= 0.8) setTimeout(() => burst(document.getElementById("res-card")), REDUCE ? 0 : 500);
+}
+function paintQuizTimer() {
+  const el = document.getElementById("qtimer"); if (!el || !Q || !Q.end) return;
+  const left = Math.max(0, Math.ceil((Q.end - Date.now()) / 1000));
+  el.textContent = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, "0")}`;
+  el.classList.toggle("urgent", left <= 60);
+}
+function quizView() {
+  const id = Q.order[Q.i], q = qById(id), pick = Q.picks[id];
+  const setTitle = Q.mode === "salah" ? "Ulang soal yang salah" : `Set ${Q.set + 1} · ${KIT.sets[Q.set].title}`;
+  if (Q.done) {
+    const wrong = Q.order.filter((x) => Q.picks[x] !== undefined && Q.picks[x] !== qById(x).a);
+    const skipped = Q.order.filter((x) => Q.picks[x] === undefined).length;
+    const total = Q.order.length, good = Q.right / total >= 0.8;
+    return `${topBar()}<button class="back" data-quit>← Kembali ke latihan</button>
+      <section class="card" id="res-card">
+        <span class="eyebrow">${esc(setTitle)} · hasil</span>
+        ${good ? `<span class="stamp lolos" aria-hidden="true">Lolos</span>` : ""}
+        <div class="resline"><span class="big">${num(Q.right, 0)}</span><span class="muted" style="padding-bottom:10px">dari ${total} benar${skipped ? ` · ${skipped} tidak dijawab` : ""}</span></div>
+        <div class="bar"><i style="width:${(Q.right / total) * 100}%"></i></div>
+        <p class="muted small">${good ? "Bagus. Pertahankan, lalu coba mode simulasi bertimer." : "Baca pembahasan soal yang salah di bawah, catat jenis salahmu: salah hitung, kurang teliti, atau belum paham."}</p>
+        <div class="row" style="flex-wrap:wrap">${Q.mode !== "salah" ? `<button class="btn sm" data-qstart="${Q.set}" data-qmode="${Q.mode}">Ulangi set ini</button>` : ""}${wrongIds().length ? `<button class="btn sm ghost" data-qstart="0" data-qmode="salah">Ulang yang salah (${wrongIds().length})</button>` : ""}</div>
+      </section>
+      ${wrong.length ? `<section class="card"><span class="eyebrow">Pembahasan soal yang salah</span><div class="review">${wrong.map((x) => { const w = qById(x); return `<div class="it"><b>${esc(w.q)}</b><span>Jawabanmu: <span style="color:var(--bad);font-weight:700">${LETTERS[Q.picks[x]]}. ${esc(w.opts[Q.picks[x]])}</span></span><span>Kunci: <span style="color:var(--ok);font-weight:700">${LETTERS[w.a]}. ${esc(w.opts[w.a])}</span></span><div class="why">${esc(w.why)}</div></div>`; }).join("")}</div></section>` : ""}`;
+  }
+  const sim = Q.mode === "simulasi";
+  const reveal = !sim && pick !== undefined;
+  const answered = Q.order.filter((x) => Q.picks[x] !== undefined).length;
+  return `${topBar()}
+    <div class="qhead"><button class="back" data-quit>← Keluar</button>${sim ? `<span class="timer" id="qtimer" style="font-size:26px">--:--</span>` : `<span class="chip">${esc(Q.mode === "salah" ? "Ulang salah" : "Mode latihan")}</span>`}</div>
+    <div class="qprog" aria-hidden="true"><i style="width:${(answered / Q.order.length) * 100}%"></i></div>
+    <section class="card" data-slide>
+      <div class="row between"><span class="eyebrow">${esc(setTitle)}</span><span class="mono muted small">${Q.i + 1}/${Q.order.length}</span></div>
+      <div class="dots" aria-hidden="true">${Q.order.map((x, k) => { const p = Q.picks[x]; const cls = k === Q.i ? "cur" : p === undefined ? "" : sim ? "ans" : p === qById(x).a ? "ok" : "bad"; return `<i class="${cls}"></i>`; }).join("")}</div>
+      <p class="qtext">${esc(q.q)}</p>
+      <div class="choices${justPick ? " just" : ""}">${q.opts.map((o, k) => {
+        let cls = "", mk = "";
+        if (reveal) { cls = k === q.a ? "right" : k === pick ? "wrong" : "dim"; mk = k === q.a ? "✓" : k === pick ? "✕" : ""; }
+        else if (pick === k) cls = "sel";
+        return `<button class="choice ${cls}" data-pick="${k}" ${reveal ? "disabled" : ""}><span class="l">${LETTERS[k]}</span><span>${esc(o)}</span><span class="mk" aria-hidden="true">${mk}</span></button>`;
+      }).join("")}</div>
+      ${reveal ? `<div class="why${justPick ? " just" : ""}"><b>${pick === q.a ? "Benar." : `Kunci: ${LETTERS[q.a]}.`}</b> ${esc(q.why)}</div>` : ""}
+      <div class="pager">
+        <button class="btn sm ghost" data-qnav="-1" ${Q.i === 0 ? "disabled" : ""}>← Sebelumnya</button>
+        ${Q.i < Q.order.length - 1 ? `<button class="btn sm" data-qnav="1">${sim && pick === undefined ? "Lewati" : "Berikutnya"} <span class="arr">→</span></button>` : `<button class="btn sm" data-qfinish>Selesai &amp; lihat skor</button>`}
+      </div>
+    </section>
+    ${sim ? `<button class="linkbtn" data-qfinish style="align-self:center">Kumpulkan sekarang</button>` : ""}`;
+}
+let pickSet = null;
+function viewLatihan() {
+  if (K && !K.done) return koranFocus();
+  if (Q) return quizView();
+  const wr = wrongIds().length;
+  return `${topBar(`<h1 class="ptitle">Latihan</h1>`)}
+    <section class="card">
+      <div class="row between" style="align-items:flex-start"><div><span class="eyebrow">Tes tertulis &amp; psikotes</span><h2 style="margin-top:4px">5 set × 30 soal</h2></div><span class="chip or">${totalBest()}/150</span></div>
+      <div class="list">${KIT.sets.map((st, i) => `
+        <button class="lrow" data-setopen="${i}" aria-expanded="${pickSet === i}"><span class="num">${i + 1}</span><span class="lmeta"><b>${esc(st.title)}</b><span class="muted small">30 soal · target ${st.minutes} menit</span></span><span class="score">${S.best[i] != null ? `${S.best[i]}/30<span class="mini"><i style="width:${(S.best[i] / 30) * 100}%"></i></span>` : `<span class="go">→</span>`}</span></button>
+        ${pickSet === i ? `<div class="modepick" style="padding-bottom:12px">
+            <button class="mode" data-qstart="${i}" data-qmode="latihan"><b>Mode latihan</b><span>Langsung tahu benar/salah dan pembahasannya.</span></button>
+            <button class="mode" data-qstart="${i}" data-qmode="simulasi"><b>Simulasi ${st.minutes} menit</b><span>Pakai timer seperti tes asli. Skor di akhir.</span></button>
+          </div><p class="setintro">${esc(st.intro)}</p>` : ""}`).join("")}</div>
+      ${wr ? `<button class="btn ghost" data-qstart="0" data-qmode="salah">Ulang ${wr} soal yang salah</button>` : ""}
+    </section>
+    ${koranCard()}
+    <p class="muted small">Format tes tiap perusahaan berbeda. Soal di sini latihan dasar, bukan bocoran soal perusahaan tertentu.</p>`;
+}
+
+/* ================= INTERVIEW ================= */
+let IV = { sec: "all", i: 0, open: false };
+function viewInterview() {
+  const qs = KIT.interview.qs.filter((q) => IV.sec === "all" || q.sec === IV.sec);
+  if (IV.i >= qs.length) IV.i = 0;
+  const q = qs[IV.i], sec = KIT.interview.sections.find((s) => s.id === q.sec);
+  const isReady = S.ready.includes(q.n);
+  return `${topBar(`<h1 class="ptitle">Latihan interview</h1>`)}
+    <p class="muted">Baca pertanyaannya, jawab dulu dengan suaramu sendiri (lebih bagus sambil direkam di HP), baru buka contoh jawaban. Targetkan 30 sampai 60 detik per jawaban.</p>
+    <div class="secfilter" role="group" aria-label="Pilih bagian">
+      <button data-ivsec="all" aria-pressed="${IV.sec === "all"}">Semua (40)</button>
+      ${KIT.interview.sections.map((s) => `<button data-ivsec="${s.id}" aria-pressed="${IV.sec === s.id}">${esc(s.title.replace(/\s*\(.*\)$/, ""))}</button>`).join("")}
+    </div>
+    <div class="row between"><span class="mono muted small">${S.ready.length}/40 jawaban siap</span><span class="mini" style="width:120px"><i style="width:${(S.ready.length / 40) * 100}%"></i></span></div>
+    <section class="card flash" data-slide>
+      <span class="qmark" aria-hidden="true">“</span>
+      <div class="row between"><span class="eyebrow">Pertanyaan ${q.n} · ${esc(sec.title.replace(/\s*\(.*\)$/, ""))}</span>${isReady ? `<span class="chip or">Siap</span>` : ""}</div>
+      <p class="q">${esc(q.q)}</p>
+      ${IV.open ? `<div class="ans">
+          <div><h4>Yang dicari HRD</h4><p>${esc(q.cari)}</p></div>
+          <div><h4>Contoh jawaban</h4><p class="quote">${esc(q.contoh)}</p></div>
+          <div class="avoid"><h4>Hindari</h4><p>${esc(q.hindari)}</p></div>
+          <p class="muted small">Ganti isi [kurung siku] dengan datamu sendiri. Contoh jawaban adalah pola, bukan naskah hafalan.</p>
+        </div>` : `<button class="btn ghost" data-ivopen>Sudah jawab? Lihat contoh jawaban</button>`}
+      <button class="btn readybtn ${isReady ? "ghost" : ""}" data-ivready="${q.n}">${isReady ? "✓ Sudah siap (ketuk untuk batal)" : "Tandai: jawabanku sudah siap"}</button>
+      <div class="pager">
+        <button class="btn sm ghost" data-ivnav="-1" ${IV.i === 0 ? "disabled" : ""}>← Sebelumnya</button>
+        <span class="mono muted small">${IV.i + 1}/${qs.length}</span>
+        <button class="btn sm" data-ivnav="1" ${IV.i === qs.length - 1 ? "disabled" : ""}>Berikutnya <span class="arr">→</span></button>
+      </div>
+    </section>
+    <section class="card" style="padding-block:4px"><a class="lrow" href="#panduan" data-guide-link="interview" style="border-top:0"><span class="num">3</span><span class="lmeta"><b>Soal gaji, pertanyaan balik &amp; checklist H-1</b><span class="muted small">Baca di Panduan Modul 3</span></span><span class="go">→</span></a></section>`;
+}
+
+/* ================= PANDUAN ================= */
+let G = null, kamusQ = "";
+function renderBlocks(blocks) {
+  let out = "", list = null, h2n = 0;
+  const flush = () => { if (list) { out += `<${list.tag}>${list.items.join("")}</${list.tag}>`; list = null; } };
+  for (const b of blocks) {
+    if (b.kind === "li" || b.kind === "ol" || b.kind === "check") {
+      const tag = b.kind === "ol" ? "ol" : "ul";
+      if (!list || list.tag !== tag) { flush(); list = { tag, items: [] }; }
+      list.items.push(`<li>${esc(b.text)}</li>`); continue;
+    }
+    flush();
+    if (b.kind === "h2") out += `<h2 id="g-${h2n++}">${esc(b.text)}</h2>`;
+    else if (b.kind === "h3") out += `<h3>${esc(b.text)}</h3>`;
+    else if (b.kind === "pre") out += `<div class="tpl"><pre>${esc(b.text)}</pre><button class="btn sm ghost" data-copy>Salin teks</button></div>`;
+    else if (b.kind === "table") {
+      const [head, ...rows] = b.rows;
+      out += `<div class="tbl"><table><thead><tr>${head.map((c) => `<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>${rows.map((r) => `<tr>${head.map((_, k) => `<td>${esc(r[k] || "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+    } else out += `<p${b.bold ? ' style="font-weight:700"' : ""}>${esc(b.text)}</p>`;
+  }
+  flush();
+  return out;
+}
+let resetUI = `<button class="linkbtn" data-reset-ask>Kosongkan centang</button>`;
+function berkasView() {
+  let n = 0;
+  return `<section class="card">
+      <div class="row between" style="align-items:flex-start"><div><span class="eyebrow">Bonus · Checklist dokumen</span><h2 style="margin-top:4px">Centang sebelum berangkat.</h2></div><span class="chip or">${S.docs.length}/${docCount}</span></div>
+      <div class="bar"><i style="width:${(S.docs.length / docCount) * 100}%"></i></div>
+      <div class="note">Tiap perusahaan bisa meminta berkas yang berbeda. Cocokkan dengan info di lowongan yang kamu lamar.</div>
+      ${DOCS.map((g) => `<div class="group"><h3 style="font-size:17px;padding:12px 0 4px">${g[0]} ${g[1] ? `<span class="muted small" style="font-family:var(--body);font-weight:500">(${g[1]})</span>` : ""}</h3>
+        ${g[2].map((x) => { const k = n++; return `<button class="item ${S.docs.includes(k) ? "done" : ""}" data-doc="${k}" aria-pressed="${S.docs.includes(k)}">${tick()}<span>${esc(x)}</span></button>`; }).join("")}</div>`).join("")}
+      ${S.docs.length ? `<div>${resetUI}</div>` : ""}
+    </section>
+    <section class="card"><span class="eyebrow">Tips menyiapkan berkas</span><ol class="tips">${TIPS.map((t) => `<li>${t}</li>`).join("")}</ol></section>`;
+}
+const termList = () => { const q = kamusQ.trim().toLowerCase(); const items = TERMS.filter((t) => !q || (t[0] + " " + t[1] + " " + t[2]).toLowerCase().includes(q)); return items.length ? items.map((t) => `<details class="term"><summary><span>${esc(t[0])}${t[1] ? `<small>${esc(t[1])}</small>` : ""}</span></summary><p>${esc(t[2])}</p></details>`).join("") : `<p class="muted" style="padding:12px 0">Belum ada istilah "${esc(kamusQ)}". Coba kata lain.</p>`; };
+function kamusView() {
+  return `<section class="card">
+      <div><span class="eyebrow">Bonus · Kamus istilah kontrak</span><h2 style="margin-top:4px">Paham istilahnya sebelum tanda tangan.</h2></div>
+      <label class="small muted" for="kamus-q">Cari istilah</label>
+      <input class="search" id="kamus-q" type="search" placeholder="Contoh: lembur, BPJS, PKWT" value="${esc(kamusQ)}">
+      <div id="kamus-list">${termList()}</div>
+      <p class="muted small">Ringkasan umum dengan bahasa sederhana, bukan nasihat hukum. Untuk keputusan penting, cek ke Disnaker, serikat pekerja, atau sumber resmi.</p>
+    </section>
+    <section class="card">
+      <div class="row between" style="align-items:flex-start"><div><span class="eyebrow">Sebelum tanda tangan kontrak</span><h2 style="margin-top:4px">Pastikan kamu tahu:</h2></div><span class="chip or">${S.sign.length}/${SIGN.length}</span></div>
+      <div class="group">${SIGN.map((x, i) => `<button class="item ${S.sign.includes(i) ? "done" : ""}" data-sign="${i}" aria-pressed="${S.sign.includes(i)}">${tick()}<span>${esc(x)}</span></button>`).join("")}</div>
+    </section>`;
+}
+function viewPanduan() {
+  if (G === "berkas" || G === "kamus") return `${topBar()}<button class="back" data-guide="">← Semua panduan</button>${G === "berkas" ? berkasView() : kamusView()}`;
+  if (G) {
+    const g = KIT.guides.find((x) => x.id === G);
+    const heads = g.blocks.filter((b) => b.kind === "h2");
+    return `<div class="readbar" aria-hidden="true"><i></i></div>${topBar()}<button class="back" data-guide="">← Semua panduan</button>
+      <section class="modhead"><span class="eyebrow">Modul ${g.no}</span><h1>${esc(g.title)}</h1><p class="muted small">${esc(g.sub)}</p></section>
+      ${heads.length > 2 ? `<details class="card"><summary>Daftar isi (${heads.length} bagian)</summary><nav class="toc">${heads.map((h, i) => `<a href="#panduan" data-jump="g-${i}">${esc(h.text)}</a>`).join("")}</nav></details>` : ""}
+      <article class="doc">${renderBlocks(g.blocks)}</article>`;
+  }
+  return `${topBar(`<h1 class="ptitle">Panduan</h1>`)}
+    <p class="muted">Lima modul, urut dari persiapan sampai hari-H. Baca berurutan, atau langsung ke bagian yang paling kamu butuhkan minggu ini.</p>
+    <section class="card" style="padding-block:4px"><div class="list">
+      ${KIT.guides.map((g) => `<button class="lrow" data-guide="${g.id}"><span class="num">${g.no}</span><span class="lmeta"><b>${esc(g.title)}</b><span class="muted small">${esc(g.sub)}</span></span><span class="go">→</span></button>`).join("")}
+    </div></section>
+    <section class="card"><span class="eyebrow">Bonus</span><div class="list">
+      <button class="lrow" data-guide="berkas"><span class="num">✓</span><span class="lmeta"><b>Checklist Dokumen Lamaran</b><span class="muted small">${S.docs.length}/${docCount} berkas sudah dicentang</span></span><span class="go">→</span></button>
+      <button class="lrow" data-guide="kamus"><span class="num">Aa</span><span class="lmeta"><b>Kamus Istilah Kontrak Kerja</b><span class="muted small">16 istilah, bisa dicari</span></span><span class="go">→</span></button>
+    </div></section>`;
+}
+
+/* ================= LAMARAN ================= */
+let jobForm = false;
+function viewLamaran() {
+  const counts = STAGES.map((_, i) => S.jobs.filter((j) => j.stage === i).length);
+  return `${topBar(`<h1 class="ptitle">Lamaran saya</h1>`)}
+    <section class="pipe" aria-label="Ringkasan lamaran">${STAGES.map((s, i) => `<div style="--c:${STAGE_C[i]}">${num(counts[i], 0)}<span>${s}</span></div>`).join("")}</section>
+    <section class="card">
+      <div><span class="eyebrow">Tracker lamaran</span><h2 style="margin-top:4px">Catat semua, biar nggak ada yang terlewat.</h2><p class="muted small" style="margin-top:6px">Target: sekitar 10 lamaran per minggu. Follow-up sekali setelah 5 sampai 7 hari kerja tanpa kabar.</p></div>
+      ${jobForm ? `<form class="form" id="job-form">
+          <label for="job-co">Nama perusahaan<input id="job-co" required placeholder="PT ..." autocomplete="organization"></label>
+          <div class="two"><label for="job-pos">Posisi<input id="job-pos" placeholder="Operator produksi"></label><label for="job-date">Tanggal kirim<input id="job-date" type="date" value="${new Date().toISOString().slice(0, 10)}"></label></div>
+          <div class="row"><button class="btn sm" type="submit">Simpan lamaran</button><button class="btn sm ghost" type="button" data-job-cancel>Batal</button></div>
+        </form>` : `<button class="btn" data-job-new>+ Tambah lamaran</button>`}
+      <div>${S.jobs.length ? S.jobs.slice().sort((a, b) => (b.date || "").localeCompare(a.date || "")).map((j) => {
+        const days = j.date ? Math.floor((Date.now() - new Date(j.date + "T00:00").getTime()) / 864e5) : 0;
+        const fu = j.stage === 0 && days >= 7;
+        return `
+        <div class="job" data-jobcard="${j.id}">
+          <div class="row between" style="align-items:flex-start"><div style="min-width:0"><h3>${esc(j.co)}</h3><p class="muted small">${esc(j.pos || "Posisi belum diisi")} · ${j.date ? new Date(j.date + "T00:00").toLocaleDateString("id-ID", { day: "numeric", month: "short" }) : "–"}</p></div>${j.example ? `<span class="chip">Contoh</span>` : fu ? `<span class="chip or">Waktunya follow-up</span>` : ""}</div>
+          <div class="steps" role="group" aria-label="Status ${esc(j.co)}">${STAGES.map((s, i) => `<button class="${i === 3 ? "st-yes" : i === 4 ? "st-no" : ""}" data-job="${j.id}" data-stage="${i}" aria-pressed="${j.stage === i}">${s}</button>`).join("")}</div>
+          <button class="linkbtn" data-job-del="${j.id}" style="align-self:flex-start">Hapus</button>
+        </div>`; }).join("") : `<p class="muted" style="padding-top:8px">Belum ada lamaran. Tambahkan yang pertama setelah kirim berkas.</p>`}</div>
+    </section>
+    <p class="muted small">Data lamaran dan latihan tersimpan di HP ini saja.</p>`;
+}
+
+/* ================= router + render ================= */
+const VIEWS = { beranda: viewBeranda, latihan: viewLatihan, interview: viewInterview, panduan: viewPanduan, lamaran: viewLamaran };
+const TABS = Object.keys(VIEWS);
+const current = () => (VIEWS[location.hash.slice(1)] ? location.hash.slice(1) : "beranda");
+const screenKey = (v) => [v, v === "latihan" && Q ? `${Q.set}${Q.mode}${Q.done ? 1 : 0}` : "", v === "latihan" && K ? (K.done ? "kd" + K.done.at : "kr") : "", v === "panduan" ? G || "" : "", v === "interview" ? IV.sec : ""].join("|");
+function render(o = {}) {
+  const v = current(), key = screenKey(v);
+  ENTER = key !== lastKey; lastKey = key;
+  app.classList.remove("enter");
+  app.innerHTML = VIEWS[v]();
+  if (ENTER && !REDUCE) { [...app.children].forEach((c, i) => c.style.setProperty("--i", Math.min(i, 8))); void app.offsetWidth; app.classList.add("enter"); }
+  if (o.just) app.querySelectorAll(o.just).forEach((el) => el.classList.add("just"));
+  if (o.slide && !ENTER && !REDUCE) { const c = app.querySelector("[data-slide]"); if (c) c.classList.add(o.slide > 0 ? "slide-next" : "slide-prev"); }
+  justPick = false;
+  app.querySelectorAll("[data-count]").forEach(countUp);
+  app.querySelectorAll(".needle").forEach((n) => requestAnimationFrame(() => requestAnimationFrame(() => { n.style.transform = `rotate(${n.dataset.to}deg)`; })));
+  if (v !== lastTab) {
+    lastTab = v;
+    document.querySelectorAll("[data-tab]").forEach((a) => (a.dataset.tab === v ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current")));
+    document.querySelector(".tabs nav").style.setProperty("--t", TABS.indexOf(v));
+  }
+  document.body.classList.toggle("focus", v === "latihan" && !!K && !K.done);
+  if (v === "latihan") { paintKoran(); paintQuizTimer(); }
+  if (v === "latihan" && ENTER && K && K.done && K.isBest) setTimeout(() => burst(document.getElementById("koran-card")), REDUCE ? 0 : 450);
+  readProgress();
+}
+function readProgress() {
+  const bar = app.querySelector(".readbar i"); if (!bar) return;
+  const doc = app.querySelector(".doc"); if (!doc) return;
+  const r = doc.getBoundingClientRect(), total = r.height - innerHeight * 0.6;
+  bar.style.setProperty("--p", Math.max(0, Math.min(1, total > 0 ? -r.top / total : 1)).toFixed(3));
+}
+window.addEventListener("scroll", readProgress, { passive: true });
+window.addEventListener("hashchange", () => {
+  if (K && !K.done && current() !== "latihan") { clearInterval(K.timer); K = null; }
+  render(); window.scrollTo(0, 0);
+});
+
+/* ================= events ================= */
+app.addEventListener("click", (e) => {
+  const t = e.target.closest("button, a[data-jump], a[data-guide-link]"); if (!t) return;
+  const d = t.dataset;
+  if (d.jump) { e.preventDefault(); const el = document.getElementById(d.jump); if (el) el.scrollIntoView({ behavior: REDUCE ? "auto" : "smooth" }); return; }
+  if (d.guideLink) { G = d.guideLink; return; }
+  if (d.plan != null) { toggle(S.plan, +d.plan); save(); render({ just: `[data-plan="${d.plan}"], #plan-chip` }); }
+  else if (d.doc != null) { toggle(S.docs, +d.doc); save(); render({ just: `[data-doc="${d.doc}"], .chip.or` }); }
+  else if (d.sign != null) { toggle(S.sign, +d.sign); save(); render({ just: `[data-sign="${d.sign}"]` }); }
+  else if (d.key != null) koranKey(+d.key);
+  else if ("koranStart" in d) koranStart(d.koranStart);
+  else if ("koranStop" in d) koranFinish();
+  else if (d.setopen != null) { pickSet = pickSet === +d.setopen ? null : +d.setopen; render(); }
+  else if (d.qstart != null) quizStart(+d.qstart, d.qmode);
+  else if (d.pick != null) { Q.picks[Q.order[Q.i]] = +d.pick; justPick = true; render(); }
+  else if (d.qnav) { const dir = +d.qnav; Q.i = Math.max(0, Math.min(Q.order.length - 1, Q.i + dir)); render({ slide: dir }); window.scrollTo(0, 0); }
+  else if ("qfinish" in d) quizFinish();
+  else if ("quit" in d) { if (Q) clearInterval(Q.timer); Q = null; render(); }
+  else if (d.ivsec) { IV = { sec: d.ivsec, i: 0, open: false }; render(); }
+  else if ("ivopen" in d) { IV.open = true; render({ just: ".ans" }); }
+  else if (d.ivnav) { const dir = +d.ivnav; IV.i += dir; IV.open = false; render({ slide: dir }); }
+  else if (d.ivready) { toggle(S.ready, +d.ivready); save(); render({ just: ".readybtn" }); if (S.ready.includes(+d.ivready)) toast(`Jawaban siap: ${S.ready.length}/40`); }
+  else if (d.guide != null) { G = d.guide || null; render(); window.scrollTo(0, 0); }
+  else if ("copy" in d) {
+    const pre = t.previousElementSibling, txt = pre.textContent;
+    const done = () => { t.textContent = "Tersalin ✓"; toast("Teks tersalin"); setTimeout(() => { t.textContent = "Salin teks"; }, 1600); };
+    const fallback = () => { const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r); t.textContent = "Teks dipilih, tekan salin"; };
+    try { navigator.clipboard.writeText(txt).then(done, fallback); } catch (err) { fallback(); }
+  }
+  else if ("resetAsk" in d) { resetUI = `<div class="confirm"><span>Kosongkan semua centang berkas?</span><button class="btn sm" data-reset-yes>Ya, kosongkan</button><button class="btn sm ghost" data-reset-no>Batal</button></div>`; render(); }
+  else if ("resetYes" in d) { S.docs = []; save(); resetUI = `<button class="linkbtn" data-reset-ask>Kosongkan centang</button>`; render(); toast("Centang berkas dikosongkan"); }
+  else if ("resetNo" in d) { resetUI = `<button class="linkbtn" data-reset-ask>Kosongkan centang</button>`; render(); }
+  else if ("jobNew" in d) { jobForm = true; render(); const f = document.getElementById("job-co"); if (f) f.focus(); }
+  else if ("jobCancel" in d) { jobForm = false; render(); }
+  else if (d.job) { const j = S.jobs.find((x) => x.id === +d.job); if (j) { j.stage = +d.stage; save(); render({ just: `[data-job="${d.job}"][data-stage="${d.stage}"]` }); if (j.stage === 3) { toast("Selamat, diterima!"); burst(app.querySelector(`[data-jobcard="${d.job}"]`)); } } }
+  else if (d.jobDel) { S.jobs = S.jobs.filter((x) => x.id !== +d.jobDel); save(); render(); toast("Lamaran dihapus"); }
+});
+app.addEventListener("submit", (e) => {
+  if (e.target.id !== "job-form") return;
+  e.preventDefault();
+  const co = document.getElementById("job-co").value.trim(); if (!co) return;
+  const id = Date.now();
+  S.jobs.push({ id, co, pos: document.getElementById("job-pos").value.trim(), date: document.getElementById("job-date").value, stage: 0 });
+  jobForm = false; save(); render({ just: `[data-jobcard="${id}"]` }); toast("Lamaran disimpan");
+});
+app.addEventListener("input", (e) => {
+  if (e.target.id !== "kamus-q") return;
+  kamusQ = e.target.value;
+  document.getElementById("kamus-list").innerHTML = termList();
+});
+document.addEventListener("keydown", (e) => { if (K && !K.done && /^[0-9]$/.test(e.key)) koranKey(+e.key); });
+
+render();
+</script>
