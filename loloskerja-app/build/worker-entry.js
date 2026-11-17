@@ -23,13 +23,16 @@ function serveStatic(pathname) {
 }
 
 // Landing-page media (video/poster) live in KV as "media:<name>"; Range support is needed for video on iOS Safari.
+const MEDIA_ALIAS = { "loloskerja-3hal.mp4": "loloskerja-app.mp4" };
 const MEDIA_TYPES = { mp4: "video/mp4", jpg: "image/jpeg", png: "image/png", webp: "image/webp" };
 async function media(request, env, name) {
   if (!/^[a-z0-9-]+\.(mp4|jpg|png|webp)$/.test(name)) return new Response("Tidak ditemukan.", { status: 404 });
-  const buf = await env.CODES.get(`media:${name}`, { type: "arrayBuffer", cacheTtl: 86400 });
+  // the LP points at a fixed filename; aliases let a new cut replace it without republishing the page
+  const key = MEDIA_ALIAS[name] || name;
+  const buf = await env.CODES.get(`media:${key}`, { type: "arrayBuffer", cacheTtl: 3600 });
   if (!buf) return new Response("Tidak ditemukan.", { status: 404 });
   const size = buf.byteLength;
-  const headers = { "content-type": MEDIA_TYPES[name.split(".").pop()], "accept-ranges": "bytes", "cache-control": "public, max-age=604800", "access-control-allow-origin": "*", "cross-origin-resource-policy": "cross-origin" };
+  const headers = { "content-type": MEDIA_TYPES[name.split(".").pop()], "accept-ranges": "bytes", "cache-control": "public, max-age=3600", "access-control-allow-origin": "*", "cross-origin-resource-policy": "cross-origin" };
   const range = /^bytes=(\d*)-(\d*)$/.exec(request.headers.get("range") || "");
   if (range && (range[1] || range[2])) {
     let start = range[1] ? +range[1] : Math.max(0, size - +range[2]);
