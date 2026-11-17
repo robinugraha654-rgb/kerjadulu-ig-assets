@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0B0B0C">
+<meta name="robots" content="noindex">
+<title>Ambil kode LolosKerja</title>
+<link rel="icon" href="/icons/icon-192.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700..800&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@700;800&display=swap">
+<style>
+  :root { --bg: #0B0B0C; --s1: #17171A; --s2: #222226; --line: #2E2E33; --fg: #F5F5F6; --mute: #A3A3AB; --red: #FF3B47; --ink: #1A0204; --ok: #3DDC97; --display: "Bricolage Grotesque", system-ui, sans-serif; --body: "Plus Jakarta Sans", system-ui, sans-serif; --mono: "JetBrains Mono", ui-monospace, monospace; color-scheme: dark; box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.55 var(--body); -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 480px; margin: 0 auto; min-height: 100vh; min-height: 100dvh; padding: 28px max(18px, env(safe-area-inset-left, 0px)) 40px max(18px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; justify-content: center; gap: 18px; }
+  .brand { display: flex; align-items: center; gap: 9px; font: 800 22px var(--display); letter-spacing: -.035em; }
+  .logo { width: 38px; height: 38px; border-radius: 50%; background: var(--red); display: grid; place-items: center; }
+  .ok-badge { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; background: rgba(61,220,151,.14); color: var(--ok); font-weight: 800; font-size: 13px; padding: 7px 13px; border-radius: 99px; }
+  h1 { margin: 0; font: 800 clamp(36px, 10.5vw, 46px)/1 var(--display); letter-spacing: -.045em; text-wrap: balance; }
+  .muted { color: var(--mute); }
+  label { font-size: 13px; font-weight: 700; color: var(--mute); }
+  input { width: 100%; font: 800 24px var(--mono); letter-spacing: .03em; text-align: center; padding: 17px 14px; border-radius: 20px; border: 2px solid var(--line); background: var(--s1); color: var(--fg); }
+  input:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 5px rgba(255,59,71,.15); }
+  form { display: flex; flex-direction: column; gap: 10px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; border: 0; border-radius: 999px; padding: 17px; font: 800 17px var(--body); background: var(--red); color: var(--ink); cursor: pointer; text-decoration: none; box-shadow: 0 10px 30px -10px var(--red); }
+  .btn.ghost { background: var(--s2); color: var(--fg); box-shadow: none; }
+  .btn:disabled { opacity: .6; }
+  .msg { border-radius: 16px; padding: 13px 15px; font-size: 14.5px; font-weight: 600; background: rgba(255,59,71,.14); }
+  .msg.wait { background: var(--s1); color: var(--mute); }
+  .card { background: var(--s1); border-radius: 28px; padding: 22px; display: flex; flex-direction: column; gap: 14px; }
+  .code { font: 800 34px var(--mono); letter-spacing: .06em; text-align: center; background: var(--bg); border: 2px dashed var(--line); border-radius: 18px; padding: 16px 10px; user-select: all; }
+  .small { font-size: 13px; }
+  ul { margin: 0; padding-left: 18px; color: var(--mute); font-size: 13.5px; display: flex; flex-direction: column; gap: 6px; }
+  li::marker { color: var(--red); }
+  [hidden] { display: none !important; }
+  :focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="brand"><span class="logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A0204" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>loloskerja</div>
+
+  <section id="step-phone" style="display:flex;flex-direction:column;gap:16px">
+    <span class="ok-badge">✓ Terima kasih sudah membeli</span>
+    <h1>Ambil kode akses kamu.</h1>
+    <p class="muted">Masukkan nomor WhatsApp yang kamu isi saat checkout. Kode akses langsung muncul di sini.</p>
+    <form id="f">
+      <label for="phone">Nomor WhatsApp</label>
+      <input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="0812 3456 7890" required>
+      <button class="btn" id="go" type="submit">Ambil kode →</button>
+    </form>
+    <p class="msg" id="err" role="alert" hidden></p>
+    <p class="msg wait" id="wait" role="status" hidden></p>
+  </section>
+
+  <section id="step-code" class="card" hidden>
+    <span class="ok-badge">✓ Pembayaran terkonfirmasi</span>
+    <h1 style="font-size:34px">Ini kode akses kamu.</h1>
+    <div class="code" id="code"></div>
+    <p class="muted small" id="order"></p>
+    <button class="btn" id="activate" type="button">Aktifkan di HP ini & buka app →</button>
+    <button class="btn ghost" id="copy" type="button">Salin kode</button>
+    <ul>
+      <li>Simpan kode ini. Satu kode bisa dipakai di 2 HP.</li>
+      <li>Setelah app terbuka, ketuk <b>Pasang app</b> supaya ikonnya ada di layar utama.</li>
+      <li>Link app: <b>loloskerja.pages.dev</b></li>
+    </ul>
+  </section>
+</main>
+<script>
+const AKEY = "loloskerja-akses-v1";
+const $ = (s) => document.getElementById(s);
+let CODE = "", timer = null, tries = 0;
+const show = (el, txt) => { el.textContent = txt; el.hidden = !txt; };
+
+async function claim(phone) {
+  const r = await fetch("/api/claim", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ phone }) });
+  return { status: r.status, data: await r.json().catch(() => ({})) };
+}
+async function run(phone, auto) {
+  $("go").disabled = true; if (!auto) $("go").textContent = "Mengecek…";
+  try {
+    const { status, data } = await claim(phone);
+    if (data.codes && data.codes.length) {
+      clearInterval(timer);
+      CODE = data.codes[0].code;
+      $("code").textContent = CODE;
+      $("order").textContent = data.codes[0].order_id ? `Pesanan ${data.codes[0].order_id}` : "";
+      $("step-phone").hidden = true; $("step-code").hidden = false;
+      return;
+    }
+    if (data.pending) {
+      show($("err"), ""); show($("wait"), `${data.message} (cek ke-${++tries})`);
+      if (!timer) timer = setInterval(() => { if (tries > 36) { clearInterval(timer); show($("wait"), "Pembayaran belum terkonfirmasi. Kalau kamu sudah bayar, coba lagi beberapa menit lagi atau hubungi admin."); return; } run(phone, true); }, 5000);
+      return;
+    }
+    show($("wait"), ""); show($("err"), data.error || "Kode belum bisa diambil. Coba lagi.");
+  } catch (e) {
+    show($("err"), "Tidak ada koneksi internet. Sambungkan internet, lalu coba lagi.");
+  } finally { $("go").disabled = false; $("go").textContent = "Ambil kode →"; }
+}
+$("f").addEventListener("submit", (e) => { e.preventDefault(); clearInterval(timer); timer = null; tries = 0; run($("phone").value); });
+
+$("copy").addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText(CODE); $("copy").textContent = "Tersalin ✓"; }
+  catch (e) { const r = document.createRange(); r.selectNodeContents($("code")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); $("copy").textContent = "Kode dipilih, tekan salin"; }
+});
+$("activate").addEventListener("click", async () => {
+  const b = $("activate"); b.disabled = true; b.textContent = "Mengaktifkan…";
+  let acc = null; try { acc = JSON.parse(localStorage.getItem(AKEY) || "null"); } catch (e) {}
+  const device = (acc && acc.device) || (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`);
+  try {
+    const r = await fetch("/api/activate", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ code: CODE, device }) });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok) { b.disabled = false; b.textContent = "Aktifkan di HP ini & buka app →"; alert(d.error || "Belum bisa diaktifkan."); return; }
+    try { localStorage.setItem(AKEY, JSON.stringify({ token: d.token, code: d.code, device })); } catch (e) {}
+    location.href = "/";
+  } catch (e) { b.disabled = false; b.textContent = "Aktifkan di HP ini & buka app →"; }
+});
+</script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 // LolosKerja service worker: app shell + content cached so the app opens offline.
-const V = "lk-shell-v2";
+const V = "lk-shell-v3";
 const DATA = "lk-data-v1";
 const FONTS = "lk-fonts-v1";
 const SHELL = ["/", "/manifest.webmanifest", "/icons/icon-192.png", "/icons/icon-512.png", "/icons/apple-180.png"];
@@ -43,12 +43,12 @@ self.addEventListener("fetch", (e) => {
     })());
     return;
   }
-  if (url.pathname.startsWith("/api/") || url.pathname.startsWith("/admin")) return;
+  if (url.pathname.startsWith("/api/") || url.pathname.startsWith("/admin") || url.pathname.startsWith("/klaim")) return;
 
   // app shell: serve cached, refresh in background
   e.respondWith((async () => {
     const c = await caches.open(V);
-    const key = req.mode === "navigate" ? "/" : req;
+    const key = url.pathname === "/" || url.pathname === "/index.html" ? "/" : req;
     const hit = await c.match(key);
     const net = fetch(req).then((r) => { if (r.ok) c.put(key, r.clone()); return r; }).catch(() => null);
     return hit || (await net) || new Response("Offline", { status: 503 });

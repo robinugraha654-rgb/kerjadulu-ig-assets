@@ -56,6 +56,26 @@
 
   <div id="main" hidden>
     <section class="card">
+      <h2>Sambungan Scalev</h2>
+      <p class="muted" id="sc-status">Memuat…</p>
+      <div class="row c2" style="margin-bottom:10px">
+        <label for="sc-url">Webhook URL (tempel di Scalev › Settings › Developers › Webhooks)<input id="sc-url" readonly></label>
+        <button class="ghost" type="button" id="sc-copy">Salin URL</button>
+      </div>
+      <p class="muted" style="font-size:13px;margin:0 0 12px">Centang event: <b>order.created</b>, <b>order.updated</b>, <b>payment.received</b>. Arahkan "Post-payment redirect URL" di halaman checkout ke <b id="sc-claim"></b>.</p>
+      <form id="sc-form" class="row c2">
+        <label for="sc-secret">Signing Secret dari Scalev<input id="sc-secret" type="password" autocomplete="off" placeholder="Tempel di sini, lalu simpan"></label>
+        <button type="submit">Simpan</button>
+      </form>
+      <details style="margin-top:12px"><summary class="muted" style="cursor:pointer;font-size:13px">Varian produk yang dapat kode (lanjutan)</summary>
+        <form id="sc-var-form" class="row c2" style="margin-top:8px">
+          <label for="sc-variants">variant_unique_id, satu per baris<textarea id="sc-variants" rows="3" style="font:600 13px var(--mono);color:var(--fg);background:var(--s2);border:1.5px solid var(--line);border-radius:12px;padding:10px;width:100%"></textarea></label>
+          <button class="ghost" type="submit">Simpan varian</button>
+        </form>
+      </details>
+    </section>
+
+    <section class="card">
       <h2>Buat kode untuk pembeli</h2>
       <form id="make-form" class="row c3">
         <label for="label">Nama pembeli / no. order<input id="label" placeholder="Contoh: Rina · #1042"></label>
@@ -134,6 +154,18 @@ document.addEventListener("click", async (e) => {
   if (b.dataset.copy) return copy(waText(b.dataset.copy, b.dataset.label), b);
   if (b.dataset.act) { b.disabled = true; try { await api("POST", { action: b.dataset.act, code: b.dataset.code }); await load(); } catch (err) { alert(err.message); } }
 });
+async function loadCfg() {
+  const r = await fetch("/api/admin/config", { headers: { "x-admin-key": KEY } });
+  const c = await r.json();
+  $("#sc-url").value = c.webhookUrl; $("#sc-claim").textContent = location.origin + "/klaim";
+  $("#sc-variants").value = (c.variants || []).join("\n");
+  const t = c.lastTest ? ` Tes terakhir dari Scalev: ${new Date(c.lastTest.at).toLocaleString("id-ID")} (${c.lastTest.signed_ok ? "tanda tangan cocok" : "tanda tangan belum cocok"}).` : "";
+  $("#sc-status").innerHTML = (c.hasSecret ? '<span class="pill">Signing Secret tersimpan</span>' : '<span class="pill off">Signing Secret belum diisi</span>') + esc(t);
+}
+$("#sc-copy").addEventListener("click", (e) => copy($("#sc-url").value, e.target));
+$("#sc-form").addEventListener("submit", async (e) => { e.preventDefault(); const v = $("#sc-secret").value.trim(); if (!v) return; await fetch("/api/admin/config", { method: "POST", headers: { "x-admin-key": KEY, "content-type": "application/json" }, body: JSON.stringify({ secret: v }) }); $("#sc-secret").value = ""; loadCfg(); });
+$("#sc-var-form").addEventListener("submit", async (e) => { e.preventDefault(); await fetch("/api/admin/config", { method: "POST", headers: { "x-admin-key": KEY, "content-type": "application/json" }, body: JSON.stringify({ variants: $("#sc-variants").value.split(/\s+/).filter(Boolean) }) }); loadCfg(); });
+const _load = load; load = async () => { await _load(); loadCfg().catch(() => {}); };
 if (KEY) load().then(() => { $("#login").hidden = true; $("#main").hidden = false; }).catch(() => {});
 </script>
 </body>

@@ -1,8 +1,4 @@
-# secrets and build output
 .secrets.local
-dist/
-.wrangler/
 node_modules/
+.wrangler/
 build/static.gen.js
-# paid content: never commit (this repo is public)
-functions/_kit.js
