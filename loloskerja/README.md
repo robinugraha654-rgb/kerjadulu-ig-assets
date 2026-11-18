@@ -6,6 +6,7 @@ Konten iklan Meta Ads untuk app **LolosKerja** (latihan tes pabrik untuk lulusan
 loloskerja/
 ├── konten/                 ← siap upload ke Ads Manager
 │   ├── video/              4 video 9:16 (1080×1920): hook 1, 7, 12, 13
+│   ├── thumbnail/          4 thumbnail/cover video (1080×1920), 1 per video
 │   ├── single-image/       5 gambar 4:5 (1080×1350)
 │   ├── carousel/           6 kartu 1:1 (1080×1080), urutan 1 sampai 6
 │   └── copy-iklan.md       primary text, headline, deskripsi, CTA
@@ -20,6 +21,7 @@ loloskerja/
 | Video | `video/loloskerja-hook7.mp4` | "Mengapa kami harus memilih Anda?" |
 | Video | `video/loloskerja-hook12.mp4` | "Ngebut di awal tes koran justru bisa bikin gugur." |
 | Video | `video/loloskerja-hook13.mp4` | Tantangan soal deret "2, 4, 8, 16, 32, ?" |
+| Thumbnail | `thumbnail/loloskerja-thumb-hookN.png` | Cover untuk video hook N (1, 7, 12, 13) |
 | Image | `single-image/loloskerja-img-1-panggilan.png` | Panggilan tes pabrik |
 | Image | `single-image/loloskerja-img-2-hrd.png` | Pertanyaan HRD + kartu interview |
 | Image | `single-image/loloskerja-img-3-ngebut.png` | Grafik per lajur |
