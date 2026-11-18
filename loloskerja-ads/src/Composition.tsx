@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Composition, Folder, Sequence, Still, staticFile } from "remotion";
 import { AdDeret, AdHRD, AdKit, AdNgebut, AdPanggilan } from "./stills/Ads";
+import { Car1Hook, Car2Koran, Car3Grafik, Car4Psikotes, Car5Interview, Car6Offer } from "./stills/Carousel";
 import { Audio } from "@remotion/media";
 import { FPS, f } from "./theme";
 import { Overlay } from "./common";
@@ -67,6 +68,14 @@ export const MyComposition = () => {
         <Still id="Img-3-Ngebut" component={AdNgebut} width={1080} height={1350} />
         <Still id="Img-4-Deret" component={AdDeret} width={1080} height={1350} />
         <Still id="Img-5-Kit" component={AdKit} width={1080} height={1350} />
+      </Folder>
+      <Folder name="Carousel">
+        <Still id="Car-1-Hook" component={Car1Hook} width={1080} height={1080} />
+        <Still id="Car-2-Koran" component={Car2Koran} width={1080} height={1080} />
+        <Still id="Car-3-Grafik" component={Car3Grafik} width={1080} height={1080} />
+        <Still id="Car-4-Psikotes" component={Car4Psikotes} width={1080} height={1080} />
+        <Still id="Car-5-Interview" component={Car5Interview} width={1080} height={1080} />
+        <Still id="Car-6-Offer" component={Car6Offer} width={1080} height={1080} />
       </Folder>
       <Folder name="Scenes">
         {[...VARIANTS.map((v) => v.hook), ...BODY].map(({ id, C: SceneC, dur }) => (

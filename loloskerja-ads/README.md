@@ -30,6 +30,10 @@ Isi video yang dipakai bersama semua varian:
 
 Kode desainnya ada di `src/stills/Ads.tsx`. Render ulang: `npx remotion still Img-1-Panggilan out/images/loloskerja-img-1-panggilan.png` (ganti ID-nya untuk gambar lain: `Img-2-HRD`, `Img-3-Ngebut`, `Img-4-Deret`, `Img-5-Kit`).
 
+## Carousel ads (`out/carousel/`), 1080×1080 (1:1), 6 kartu
+
+Urutan kartu: `car-1-hook`, `car-2-koran`, `car-3-grafik`, `car-4-psikotes`, `car-5-interview`, `car-6-offer`. Kode desainnya ada di `src/stills/Carousel.tsx`, dengan ID composition `Car-1-Hook` sampai `Car-6-Offer`.
+
 ## Struktur
 
 ```
