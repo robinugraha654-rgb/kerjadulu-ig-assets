@@ -1,5 +1,6 @@
 import React from "react";
-import { AbsoluteFill, Composition, Folder, Sequence, staticFile } from "remotion";
+import { AbsoluteFill, Composition, Folder, Sequence, Still, staticFile } from "remotion";
+import { AdDeret, AdHRD, AdKit, AdNgebut, AdPanggilan } from "./stills/Ads";
 import { Audio } from "@remotion/media";
 import { FPS, f } from "./theme";
 import { Overlay } from "./common";
@@ -60,6 +61,13 @@ export const MyComposition = () => {
         const Comp: React.FC = () => <Ad scenes={scenes} vo={vo} />;
         return <Composition key={id} id={id} component={Comp} durationInFrames={f(total)} fps={FPS} width={1080} height={1920} />;
       })}
+      <Folder name="SingleImage">
+        <Still id="Img-1-Panggilan" component={AdPanggilan} width={1080} height={1350} />
+        <Still id="Img-2-HRD" component={AdHRD} width={1080} height={1350} />
+        <Still id="Img-3-Ngebut" component={AdNgebut} width={1080} height={1350} />
+        <Still id="Img-4-Deret" component={AdDeret} width={1080} height={1350} />
+        <Still id="Img-5-Kit" component={AdKit} width={1080} height={1350} />
+      </Folder>
       <Folder name="Scenes">
         {[...VARIANTS.map((v) => v.hook), ...BODY].map(({ id, C: SceneC, dur }) => (
           <Composition key={id} id={id} component={SceneC} durationInFrames={f(dur)} fps={FPS} width={1080} height={1920} />

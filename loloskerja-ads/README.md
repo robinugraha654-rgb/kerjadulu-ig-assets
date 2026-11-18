@@ -18,6 +18,18 @@ Isi video yang dipakai bersama semua varian:
 4. **Fitur**: 150 soal psikotes + pembahasan, 40 pertanyaan HRD + contoh jawaban.
 5. **CTA**: Rp49.000 sekali bayar, tanpa kuota, garansi 7 hari, "Cek link di bio".
 
+## Single image ads (`out/images/`), 1080×1350 (4:5 feed)
+
+| File | Angle |
+|---|---|
+| `loloskerja-img-1-panggilan.png` | "Minggu ini ada panggilan tes pabrik?" + layar tes koran |
+| `loloskerja-img-2-hrd.png` | "Mengapa kami harus memilih Anda?" Kamu jawab apa? + contoh pertanyaan HRD |
+| `loloskerja-img-3-ngebut.png` | "Ngebut di awal justru bisa bikin gugur." + grafik per lajur |
+| `loloskerja-img-4-deret.png` | Tantangan soal deret "2, 4, 8, 16, 32, ?" (ajak komentar) |
+| `loloskerja-img-5-kit.png` | Penawaran produk: 3 layar app + fitur + harga |
+
+Kode desainnya ada di `src/stills/Ads.tsx`. Render ulang: `npx remotion still Img-1-Panggilan out/images/loloskerja-img-1-panggilan.png` (ganti ID-nya untuk gambar lain: `Img-2-HRD`, `Img-3-Ngebut`, `Img-4-Deret`, `Img-5-Kit`).
+
 ## Struktur
 
 ```
