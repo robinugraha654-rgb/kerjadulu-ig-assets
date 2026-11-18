@@ -1,0 +1,70 @@
+import React from "react";
+import { AbsoluteFill, Composition, Folder, Sequence, staticFile } from "remotion";
+import { Audio } from "@remotion/media";
+import { FPS, f } from "./theme";
+import { Overlay } from "./common";
+import { S1Hook, S1_DUR } from "./scenes/S1Hook";
+import { S7HookHRD, S7_DUR } from "./scenes/S7HookHRD";
+import { S12HookNgebut, S12_DUR } from "./scenes/S12HookNgebut";
+import { S13HookDeret, S13_DUR } from "./scenes/S13HookDeret";
+import { S2Problem, S2_DUR } from "./scenes/S2Problem";
+import { S3Koran, S3_DUR } from "./scenes/S3Koran";
+import { S4Reveal, S4_DUR } from "./scenes/S4Reveal";
+import { S5Features, S5_DUR } from "./scenes/S5Features";
+import { S6Cta, S6_DUR } from "./scenes/S6Cta";
+
+type Scene = { id: string; C: React.FC; start: number; dur: number };
+
+// Shared body. Start times (relative to the end of the hook) follow the word timestamps of public/vo/vo.mp3
+const BODY_START = 4.45;
+const BODY: Scene[] = [
+  { id: "S2-Problem", C: S2Problem, start: 4.45, dur: S2_DUR },
+  { id: "S3-TesKoran", C: S3Koran, start: 9.1, dur: S3_DUR },
+  { id: "S4-Reveal", C: S4Reveal, start: 14.35, dur: S4_DUR },
+  { id: "S5-Features", C: S5Features, start: 17.65, dur: S5_DUR },
+  { id: "S6-CTA", C: S6Cta, start: 23.9, dur: S6_DUR },
+];
+const BODY_END = 30.5;
+
+/** Hook scene + the shared body, shifted to start when the hook ends */
+const buildScenes = (hook: Scene): Scene[] => [
+  hook,
+  ...BODY.map((s) => ({ ...s, start: s.start - BODY_START + hook.dur })),
+];
+
+const VARIANTS = [
+  { id: "Hook1", hook: { id: "S1-Hook", C: S1Hook, start: 0, dur: S1_DUR }, vo: "vo/vo.mp3" },
+  { id: "Hook7", hook: { id: "S7-HookHRD", C: S7HookHRD, start: 0, dur: S7_DUR }, vo: "vo/vo-hook7.mp3" },
+  { id: "Hook12", hook: { id: "S12-HookNgebut", C: S12HookNgebut, start: 0, dur: S12_DUR }, vo: "vo/vo-hook12.mp3" },
+  { id: "Hook13", hook: { id: "S13-HookDeret", C: S13HookDeret, start: 0, dur: S13_DUR }, vo: "vo/vo-hook13.mp3" },
+];
+
+const Ad: React.FC<{ scenes: Scene[]; vo: string }> = ({ scenes, vo }) => (
+  <AbsoluteFill style={{ backgroundColor: "#0B0B0C" }}>
+    {scenes.map(({ id, C: SceneC, start, dur }) => (
+      <Sequence key={id} name={id} from={f(start)} durationInFrames={f(dur)}>
+        <SceneC />
+      </Sequence>
+    ))}
+    <Overlay />
+    <Audio src={staticFile(vo)} volume={1} />
+  </AbsoluteFill>
+);
+
+export const MyComposition = () => {
+  return (
+    <>
+      {VARIANTS.map(({ id, hook, vo }) => {
+        const scenes = buildScenes(hook);
+        const total = hook.dur + BODY_END - BODY_START;
+        const Comp: React.FC = () => <Ad scenes={scenes} vo={vo} />;
+        return <Composition key={id} id={id} component={Comp} durationInFrames={f(total)} fps={FPS} width={1080} height={1920} />;
+      })}
+      <Folder name="Scenes">
+        {[...VARIANTS.map((v) => v.hook), ...BODY].map(({ id, C: SceneC, dur }) => (
+          <Composition key={id} id={id} component={SceneC} durationInFrames={f(dur)} fps={FPS} width={1080} height={1920} />
+        ))}
+      </Folder>
+    </>
+  );
+};

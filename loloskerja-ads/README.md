@@ -1,0 +1,58 @@
+# LolosKerja: video iklan (Remotion)
+
+Video iklan 9:16 (1080×1920, 30fps) untuk app **LolosKerja**. Ada 4 varian hook dengan isi video yang sama, untuk A/B test di Meta Ads.
+
+## Video jadi (`out/`)
+
+| File | Hook | Durasi |
+|---|---|---|
+| `out/loloskerja-hook1.mp4` | "Lulusan SMK, minggu ini ada panggilan tes pabrik? Berhenti scroll dulu!" | 30,5 dtk |
+| `out/loloskerja-hook7.mp4` | "Mengapa kami harus memilih Anda?" (simulasi interview HRD) | 33,2 dtk |
+| `out/loloskerja-hook12.mp4` | "Ngebut di awal tes koran… justru bisa bikin kamu gugur." (grafik per lajur) | 35,8 dtk |
+| `out/loloskerja-hook13.mp4` | Tantangan soal deret "2, 4, 8, 16, 32… ?" dengan countdown | 39,6 dtk |
+
+Isi video yang dipakai bersama semua varian:
+1. **Masalah**: "Banyak yang gugur bukan karena nggak pintar, tapi karena kaget sama soalnya."
+2. **Demo tes koran**: animasi per lajur dengan timer.
+3. **Reveal**: logo LolosKerja dan HP berisi layar tes koran asli.
+4. **Fitur**: 150 soal psikotes + pembahasan, 40 pertanyaan HRD + contoh jawaban.
+5. **CTA**: Rp49.000 sekali bayar, tanpa kuota, garansi 7 hari, "Cek link di bio".
+
+## Struktur
+
+```
+src/
+  Composition.tsx        # Daftar varian (Hook1/7/12/13) + susunan adegan isi video
+  theme.ts               # Warna app, font, helper animasi
+  common.tsx             # Background, grain, Phone mockup, Chip, Logo, Sfx, dll.
+  scenes/
+    S1Hook.tsx           # Hook #1
+    S7HookHRD.tsx        # Hook #7
+    S12HookNgebut.tsx    # Hook #12
+    S13HookDeret.tsx     # Hook #13
+    S2Problem.tsx … S6Cta.tsx   # Isi video yang dipakai semua varian
+public/
+  vo/      # Voice over ElevenLabs (suara "Finn"). vo.mp3 = Hook1 + isi; vo-hookN.mp3 = hook N + isi
+  shots/   # Screenshot asli dari app loloskerja.pages.dev
+  sfx/     # Efek suara (dibuat dengan ffmpeg)
+  fonts/   # Bricolage Grotesque, Plus Jakarta Sans, JetBrains Mono, Caveat (lokal, supaya render tidak butuh internet)
+```
+
+Waktu tiap adegan disinkronkan dengan timestamp per kata dari VO. Kalau VO diganti, angka `at={…}` di adegan terkait juga harus disesuaikan.
+
+## Menjalankan
+
+```bash
+npm install
+npx remotion studio                 # preview & edit di browser
+npx remotion render Hook1 out/loloskerja-hook1.mp4 --codec=h264 --crf=18
+npx remotion render Hook7 out/loloskerja-hook7.mp4 --codec=h264 --crf=18
+npx remotion render Hook12 out/loloskerja-hook12.mp4 --codec=h264 --crf=18
+npx remotion render Hook13 out/loloskerja-hook13.mp4 --codec=h264 --crf=18
+```
+
+## Menambah varian hook baru
+
+1. Buat VO hook dengan suara yang sama, lalu gabungkan dengan bagian isi dari `vo.mp3` (mulai detik 4,45).
+2. Buat adegan baru di `src/scenes/`, export komponen dan durasinya.
+3. Tambahkan satu baris di `VARIANTS` dalam `src/Composition.tsx`.
