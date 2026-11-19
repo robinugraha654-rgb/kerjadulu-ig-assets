@@ -2,6 +2,7 @@ import React from "react";
 import { AbsoluteFill, Composition, Folder, Sequence, Still, staticFile } from "remotion";
 import { AdDeret, AdHRD, AdKit, AdNgebut, AdPanggilan } from "./stills/Ads";
 import { AdLokerPalsu, LP_TOTAL } from "./scenes/LokerPalsu";
+import { AdBerkas, BK_TOTAL } from "./scenes/Berkas";
 import { Thumb1, Thumb7, Thumb12, Thumb13 } from "./stills/Thumbs";
 import { Car1Hook, Car2Koran, Car3Grafik, Car4Psikotes, Car5Interview, Car6Offer } from "./stills/Carousel";
 import { Audio } from "@remotion/media";
@@ -72,6 +73,7 @@ export const MyComposition = () => {
         <Still id="Img-5-Kit" component={AdKit} width={1080} height={1350} />
       </Folder>
       <Composition id="Angle-LokerPalsu" component={AdLokerPalsu} durationInFrames={f(LP_TOTAL)} fps={FPS} width={1080} height={1920} />
+      <Composition id="Angle-Berkas" component={AdBerkas} durationInFrames={f(BK_TOTAL)} fps={FPS} width={1080} height={1920} />
       <Folder name="Thumbnails">
         <Still id="Thumb-Hook1" component={Thumb1} width={1080} height={1920} />
         <Still id="Thumb-Hook7" component={Thumb7} width={1080} height={1920} />
