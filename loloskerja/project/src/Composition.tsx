@@ -4,7 +4,7 @@ import { AdDeret, AdHRD, AdKit, AdNgebut, AdPanggilan } from "./stills/Ads";
 import { AdLokerPalsu, LP_TOTAL } from "./scenes/LokerPalsu";
 import { AdBerkas, BK_TOTAL } from "./scenes/Berkas";
 import { AdOrangTua, OT_TOTAL } from "./scenes/OrangTua";
-import { Thumb1, Thumb7, Thumb12, Thumb13 } from "./stills/Thumbs";
+import { Thumb1, Thumb7, Thumb12, Thumb13, ThumbLoker, ThumbBerkas, ThumbOrangTua } from "./stills/Thumbs";
 import { Car1Hook, Car2Koran, Car3Grafik, Car4Psikotes, Car5Interview, Car6Offer } from "./stills/Carousel";
 import { Audio } from "@remotion/media";
 import { FPS, f } from "./theme";
@@ -81,6 +81,9 @@ export const MyComposition = () => {
         <Still id="Thumb-Hook7" component={Thumb7} width={1080} height={1920} />
         <Still id="Thumb-Hook12" component={Thumb12} width={1080} height={1920} />
         <Still id="Thumb-Hook13" component={Thumb13} width={1080} height={1920} />
+        <Still id="Thumb-LokerPalsu" component={ThumbLoker} width={1080} height={1920} />
+        <Still id="Thumb-Berkas" component={ThumbBerkas} width={1080} height={1920} />
+        <Still id="Thumb-OrangTua" component={ThumbOrangTua} width={1080} height={1920} />
       </Folder>
       <Folder name="Carousel">
         <Still id="Car-1-Hook" component={Car1Hook} width={1080} height={1080} />

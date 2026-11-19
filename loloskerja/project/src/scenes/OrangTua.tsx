@@ -14,7 +14,7 @@ const fade = (t: number, dur: number) => {
 };
 
 /** Warm night room: lamp glow + silhouette looking at a phone (back view) */
-const NightRoom: React.FC<{ t: number; notif?: number }> = ({ t, notif = 0 }) => {
+export const NightRoom: React.FC<{ t: number; notif?: number }> = ({ t, notif = 0 }) => {
   const flicker = 0.92 + Math.sin(t * 3) * 0.04;
   return (
     <AbsoluteFill>
