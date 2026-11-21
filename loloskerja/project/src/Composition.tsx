@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Composition, Folder, Sequence, Still, staticFile } from "remotion";
 import { AdDeret, AdHRD, AdKit, AdNgebut, AdPanggilan } from "./stills/Ads";
+import { StoryIntro, StoryKoran, StoryHasil, StoryPsikotes, StoryBahas, StoryInterview, StoryPanduan, StoryDokumen, StoryLoker, StoryRencana, StoryClosing, CoverIsiApp } from "./stills/Stories";
 import { ProfileDark, ProfileRed, ProfileMono } from "./stills/Profile";
 import { AdLokerPalsu, LP_TOTAL } from "./scenes/LokerPalsu";
 import { AdBerkas, BK_TOTAL } from "./scenes/Berkas";
@@ -77,6 +78,20 @@ export const MyComposition = () => {
       <Composition id="Angle-LokerPalsu" component={AdLokerPalsu} durationInFrames={f(LP_TOTAL)} fps={FPS} width={1080} height={1920} />
       <Composition id="Angle-Berkas" component={AdBerkas} durationInFrames={f(BK_TOTAL)} fps={FPS} width={1080} height={1920} />
       <Composition id="Angle-OrangTua" component={AdOrangTua} durationInFrames={f(OT_TOTAL)} fps={FPS} width={1080} height={1920} />
+      <Folder name="Story-IsiApp">
+        <Still id="Story-00-Intro" component={StoryIntro} width={1080} height={1920} />
+        <Still id="Story-01-Koran" component={StoryKoran} width={1080} height={1920} />
+        <Still id="Story-02-Hasil" component={StoryHasil} width={1080} height={1920} />
+        <Still id="Story-03-Psikotes" component={StoryPsikotes} width={1080} height={1920} />
+        <Still id="Story-04-Bahas" component={StoryBahas} width={1080} height={1920} />
+        <Still id="Story-05-Interview" component={StoryInterview} width={1080} height={1920} />
+        <Still id="Story-06-Panduan" component={StoryPanduan} width={1080} height={1920} />
+        <Still id="Story-07-Dokumen" component={StoryDokumen} width={1080} height={1920} />
+        <Still id="Story-08-Loker" component={StoryLoker} width={1080} height={1920} />
+        <Still id="Story-09-Rencana" component={StoryRencana} width={1080} height={1920} />
+        <Still id="Story-10-Closing" component={StoryClosing} width={1080} height={1920} />
+        <Still id="Cover-IsiApp" component={CoverIsiApp} width={1080} height={1920} />
+      </Folder>
       <Folder name="Profile">
         <Still id="Profile-Dark" component={ProfileDark} width={1080} height={1080} />
         <Still id="Profile-Red" component={ProfileRed} width={1080} height={1080} />

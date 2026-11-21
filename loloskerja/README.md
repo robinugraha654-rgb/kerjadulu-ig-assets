@@ -7,6 +7,7 @@ loloskerja/
 ├── konten/                 ← siap upload ke Ads Manager
 │   ├── video/              video 9:16 (1080×1920): hook 1, 7, 12, 13 + angle loker palsu, berkas & orang tua
 │   ├── thumbnail/          thumbnail/cover video (1080×1920), 1 per video
+│   ├── highlight-isiapp/   cover + 11 slide Story 9:16 untuk highlight IG "Isi App"
 │   ├── profil/             3 pilihan foto profil IG @loloskerja.idn (1080×1080)
 │   ├── single-image/       5 gambar 4:5 (1080×1350)
 │   ├── carousel/           6 kartu 1:1 (1080×1080), urutan 1 sampai 6
