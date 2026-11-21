@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Composition, Folder, Sequence, Still, staticFile } from "remotion";
 import { AdDeret, AdHRD, AdKit, AdNgebut, AdPanggilan } from "./stills/Ads";
+import { STORIES2 } from "./stills/Stories2";
 import { StoryIntro, StoryKoran, StoryHasil, StoryPsikotes, StoryBahas, StoryInterview, StoryPanduan, StoryDokumen, StoryLoker, StoryRencana, StoryClosing, CoverIsiApp } from "./stills/Stories";
 import { ProfileDark, ProfileRed, ProfileMono } from "./stills/Profile";
 import { AdLokerPalsu, LP_TOTAL } from "./scenes/LokerPalsu";
@@ -78,6 +79,11 @@ export const MyComposition = () => {
       <Composition id="Angle-LokerPalsu" component={AdLokerPalsu} durationInFrames={f(LP_TOTAL)} fps={FPS} width={1080} height={1920} />
       <Composition id="Angle-Berkas" component={AdBerkas} durationInFrames={f(BK_TOTAL)} fps={FPS} width={1080} height={1920} />
       <Composition id="Angle-OrangTua" component={AdOrangTua} durationInFrames={f(OT_TOTAL)} fps={FPS} width={1080} height={1920} />
+      <Folder name="Story-Highlights">
+        {STORIES2.map(([id, Comp]) => (
+          <Still key={id} id={id} component={Comp} width={1080} height={1920} />
+        ))}
+      </Folder>
       <Folder name="Story-IsiApp">
         <Still id="Story-00-Intro" component={StoryIntro} width={1080} height={1920} />
         <Still id="Story-01-Koran" component={StoryKoran} width={1080} height={1920} />
