@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Composition, Folder, Sequence, Still, staticFile } from "remotion";
 import { AdDeret, AdHRD, AdKit, AdNgebut, AdPanggilan } from "./stills/Ads";
+import { ProfileDark, ProfileRed, ProfileMono } from "./stills/Profile";
 import { AdLokerPalsu, LP_TOTAL } from "./scenes/LokerPalsu";
 import { AdBerkas, BK_TOTAL } from "./scenes/Berkas";
 import { AdOrangTua, OT_TOTAL } from "./scenes/OrangTua";
@@ -76,6 +77,11 @@ export const MyComposition = () => {
       <Composition id="Angle-LokerPalsu" component={AdLokerPalsu} durationInFrames={f(LP_TOTAL)} fps={FPS} width={1080} height={1920} />
       <Composition id="Angle-Berkas" component={AdBerkas} durationInFrames={f(BK_TOTAL)} fps={FPS} width={1080} height={1920} />
       <Composition id="Angle-OrangTua" component={AdOrangTua} durationInFrames={f(OT_TOTAL)} fps={FPS} width={1080} height={1920} />
+      <Folder name="Profile">
+        <Still id="Profile-Dark" component={ProfileDark} width={1080} height={1080} />
+        <Still id="Profile-Red" component={ProfileRed} width={1080} height={1080} />
+        <Still id="Profile-Mono" component={ProfileMono} width={1080} height={1080} />
+      </Folder>
       <Folder name="Thumbnails">
         <Still id="Thumb-Hook1" component={Thumb1} width={1080} height={1920} />
         <Still id="Thumb-Hook7" component={Thumb7} width={1080} height={1920} />
